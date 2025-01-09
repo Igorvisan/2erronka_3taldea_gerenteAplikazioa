@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane style="-fx-background-color: #345A7B;" xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.javafx.HasierakoMenuaController">
+    <children>
+        <ImageView fitHeight="161.0" fitWidth="206.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../../../images/restauranLogo (1).png"/>
+            </image>
+        </ImageView>
+        <Label fx:id="erabiltzailea" layoutX="800.0" layoutY="30.0" style="-fx-font-size: 14px; -fx-font-weight: bold;"
+               text="Erabiltzailea" textFill="#CFD0CE" AnchorPane.rightAnchor="20.0"/>
+        <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Aukeratu Zerbitzua"
+                       textFill="#CFD0CE"/>
+                <Button style="-fx-background-color: #666E6C; -fx-text-fill: #CFD0CE; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                        text="Mahaiak Kudeatu" prefWidth="200.0"/>
+                <Button style="-fx-background-color: #666E6C; -fx-text-fill: #CFD0CE; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                        text="Erreserbak Kudeatu" prefWidth="200.0"/>
+                <Button style="-fx-background-color: #666E6C; -fx-text-fill: #CFD0CE; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                        text="Langileak Kudeatu" prefWidth="200.0"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

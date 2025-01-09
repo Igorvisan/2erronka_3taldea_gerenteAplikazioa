@@ -1,0 +1,7 @@
+.buttonLogin{
+    -fx-background-color: #64646C;
+    -fx-background-radius: 25;
+}
+.textField{
+    -fx-background-radius: 20;
+}
