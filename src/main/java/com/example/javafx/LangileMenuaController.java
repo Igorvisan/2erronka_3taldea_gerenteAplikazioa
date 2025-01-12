@@ -98,6 +98,17 @@ public class LangileMenuaController extends BaseController {
         usingStage.show();
     }
 
-    public void onLangileaEditatuBotoiaClick(ActionEvent actionEvent) {
+    public void onLangileaEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader langileaEditatu = new FXMLLoader(App.class.getResource("langileaEditatu.fxml"));
+        Scene scene = new Scene(langileaEditatu.load());
+        LangileaEditatuController ledc = langileaEditatu.getController();
+        Stage usingStage = this.getUsingStage();
+        ledc.setErabiltzailea(erab);
+        ledc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Langilea editatzeko galdetegia");
+        usingStage.show();
     }
 }
