@@ -20,7 +20,6 @@ public class SaioaHasiController extends BaseController {
     @FXML
     private TextField pasahitza;
 
-    private Stage usingStage;
     @FXML
     protected void onsaioaHasiBotoiaClick() throws IOException {
         String erab = erabiltzailea.getText();

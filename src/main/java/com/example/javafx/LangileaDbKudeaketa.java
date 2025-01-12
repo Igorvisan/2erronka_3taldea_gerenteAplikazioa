@@ -1,4 +1,6 @@
 package com.example.javafx;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,5 +33,31 @@ public class LangileaDbKudeaketa {
         }
 
         return -1; // ez da existitzen edo errorea
+    }
+
+    public static ObservableList<Langilea> getAllLangileak() {
+        String query = "SELECT id, izena, email, lan_postua FROM langile";
+        ObservableList<Langilea> langileenLista = FXCollections.observableArrayList();
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Langilea langilea = new Langilea(
+                        rs.getInt("id"),
+                        rs.getString("izena"),
+                        rs.getString("email"),
+                        "",
+                        rs.getString("lan_postua")
+                );
+                langileenLista.add(langilea);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errorea datuak eskuratzerakoan: " + e.getMessage());
+        }
+
+        return langileenLista;
     }
 }
