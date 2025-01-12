@@ -39,7 +39,7 @@ public class LangileaDbKudeaketa {
     }
 
     public static ObservableList<Langilea> getAllLangileak() {
-        String query = "SELECT id, izena, email, lan_postua FROM langile";
+        String query = "SELECT id, izena, email, lan_postua, pasahitza FROM langile";
         ObservableList<Langilea> langileenLista = FXCollections.observableArrayList();
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -51,8 +51,9 @@ public class LangileaDbKudeaketa {
                         rs.getInt("id"),
                         rs.getString("izena"),
                         rs.getString("email"),
-                        "",
-                        rs.getString("lan_postua")
+                        rs.getString("lan_postua"),
+                        rs.getString("pasahitza")
+
                 );
                 langileenLista.add(langilea);
             }
@@ -138,5 +139,27 @@ public class LangileaDbKudeaketa {
             e.printStackTrace(); // Imprimir el error completo para depuración
         }
     }
+    public static boolean editatuLangilea(Langilea langilea) {
+        String query = "UPDATE langile SET izena = ?, email = ?, lan_postua = ?, pasahitza = ? WHERE id = ?";
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Asignar los parámetros al PreparedStatement
+            stmt.setString(1, langilea.getIzena());
+            stmt.setString(2, langilea.getEmail());
+            stmt.setString(3, langilea.getLanPostua());
+            stmt.setString(4, langilea.getPasahitza());
+            stmt.setInt(5, langilea.getId());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.err.println("Error actualizando los datos del empleado: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 }

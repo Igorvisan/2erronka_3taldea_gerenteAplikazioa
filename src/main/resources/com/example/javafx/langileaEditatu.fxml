@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.PasswordField?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.LangileaEditatuController" style="-fx-background-color: #345A7B;">
     <children>
@@ -21,18 +22,21 @@
         <!-- Usuario Label -->
         <Label fx:id="erabiltzailea" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Erabiltzailea" textFill="#CFD0CE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
 
-        <!-- Tabla de trabajadores -->
-        <TableView fx:id="langileTaula" prefWidth="500" prefHeight="300" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="150.0">
+
+        <TableView fx:id="langileTaula" prefWidth="600" prefHeight="450"
+                   AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" AnchorPane.rightAnchor="750.0">
             <columns>
-                <TableColumn text="Izena" prefWidth="150"/>
-                <TableColumn text="Email" prefWidth="150"/>
-                <TableColumn text="Lan Postua" prefWidth="150"/>
-                <TableColumn text="Pasahitza" prefWidth="150"/>
+                <TableColumn fx:id="izenaColumn" text="Izena" prefWidth="150"/>
+                <TableColumn fx:id="emailColumn" text="Email" prefWidth="150"/>
+                <TableColumn fx:id="lanPostuaColumn" text="Lan Postua" prefWidth="150"/>
+                <TableColumn fx:id="pasahitzaColumn" text="Pasahitza" prefWidth="150"/>
             </columns>
         </TableView>
 
+
+
         <!-- Formulario de edición -->
-        <VBox spacing="20" prefWidth="250" AnchorPane.leftAnchor="850.0" AnchorPane.topAnchor="150.0">
+        <VBox spacing="20" prefWidth="300" AnchorPane.leftAnchor="950.0" AnchorPane.topAnchor="150.0">
             <Label text="Izena:"/>
             <TextField fx:id="izenaField"/>
 

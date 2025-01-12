@@ -8,12 +8,12 @@ public class Langilea {
     private String lanPostua;
 
     public Langilea() {}
-    public Langilea(int id, String izena, String email, String pasahitza, String lanPostua) {
+    public Langilea(int id, String izena, String email, String lanPostua, String pasahitza) {
         this.id = id;
         this.izena = izena;
         this.email = email;
-        this.pasahitza = pasahitza;
         this.lanPostua = lanPostua;
+        this.pasahitza = pasahitza;
     }
     public int getId() {
         return id;
