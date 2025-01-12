@@ -1,5 +1,6 @@
 package com.example.javafx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,7 +32,21 @@ public class HasierakoMenuaController extends BaseController {
         lmc.setErabiltzailea(erab);
         lmc.setUsingStage(usingStage);
         usingStage.setScene(scene);
-        usingStage.setTitle("Hasierako Menua");
+        usingStage.setTitle("Langile Menua");
+        usingStage.show();
+    }
+
+    public void onMahaiakKudeatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader mahaiaMenua = new FXMLLoader(App.class.getResource("mahaiaMenua.fxml"));
+        Scene scene = new Scene(mahaiaMenua.load());
+        MahaiaMenuaController mmc = mahaiaMenua.getController();
+        Stage usingStage = this.getUsingStage();
+        mmc.setErabiltzailea(erab);
+        mmc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Langile Menua");
         usingStage.show();
     }
 }

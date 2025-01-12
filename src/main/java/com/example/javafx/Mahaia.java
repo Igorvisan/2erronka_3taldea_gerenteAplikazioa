@@ -6,9 +6,9 @@ public class Mahaia {
     private boolean libre;
 
     public Mahaia() {}
-    public Mahaia(int id, int gehienezko, boolean libre) {
+    public Mahaia(int id, int gehienezkoKopurua, boolean libre) {
         this.id = id;
-        this.gehienezkoKopurua = gehienezko;
+        this.gehienezkoKopurua = gehienezkoKopurua;
         this.libre = libre;
     }
     public int getId() {
