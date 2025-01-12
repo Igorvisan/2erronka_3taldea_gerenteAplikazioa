@@ -70,7 +70,7 @@ public class LangileaDbKudeaketa {
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-
+            // Establecer los valores para los campos en la base de datos
             stmt.setString(1, langilea.getIzena());
             stmt.setString(2, langilea.getEmail());
             stmt.setString(3, langilea.getPasahitza());
@@ -80,22 +80,62 @@ public class LangileaDbKudeaketa {
             int filasAfectadas = stmt.executeUpdate();
 
             if (filasAfectadas > 0) {
-                // Obtener el id generado
+                // Obtener el ID autoincrementado después de insertar
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        int generatedId = generatedKeys.getInt(1); // El primer campo es el id autoincremental
-                        langilea.setId(generatedId); // Establecer el id generado al objeto Langilea
+                        int generatedId = generatedKeys.getInt(1); // Obtener el ID autoincremental generado
+                        langilea.setId(generatedId); // Establecer el ID generado al objeto Langilea
+
+                        // Mostrar mensaje de éxito
                         String izena = "Langilea Gehitu";
-                        String mezuLuzea = "Langilea zuzen gehitu da. Honako hau da bere id-a: " + generatedId;
+                        String mezuLuzea = "Langilea zuzen gehitu da. Honako hau da bere ID-a: " + generatedId;
                         mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
                     }
                 }
+            } else {
+                // Si no se inserta ninguna fila, mostrar mensaje de error
+                String izena = "Errorea";
+                String mezuLuzea = "Ez da langilea gehitu.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            }
+
+        } catch (SQLException e) {
+            // Si ocurre un error, mostrar el mensaje y trazar la excepción
+            String izena = "Errorea";
+            String mezuLuzea = "Errorea langilea gehitzean: " + e.getMessage();
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+
+            e.printStackTrace();
+        }
+    }
+    public static void langileaEzabatu(int langileId) {
+        String query = "DELETE FROM langile WHERE id = ?"; // Query para eliminar un trabajador por ID
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, langileId); // Usar el ID del trabajador
+
+            System.out.println("Ejecutando consulta: " + stmt.toString()); // Imprimir la consulta para depuración
+
+            int filasAfectadas = stmt.executeUpdate();
+            System.out.println("Filas afectadas: " + filasAfectadas); // Ver cuántas filas se han afectado
+
+            if (filasAfectadas > 0) {
+                String izena = "Langilea Ezabatu";
+                String mezuLuzea = "Langilea arrakastaz ezabatu da.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+            } else {
+                String izena = "Errorea";
+                String mezuLuzea = "Ez da langilea aurkitu.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
             }
 
         } catch (SQLException e) {
             String izena = "Errorea";
-            String mezuLuzea = "Errorea langilea gehitzean: " + e.getMessage();
+            String mezuLuzea = "Errorea langilea ezabatzean: " + e.getMessage();
             mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            e.printStackTrace(); // Imprimir el error completo para depuración
         }
     }
 

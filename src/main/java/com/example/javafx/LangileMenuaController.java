@@ -84,7 +84,18 @@ public class LangileMenuaController extends BaseController {
         usingStage.show();
     }
 
-    public void onLangileaEzabatuBotoiaClick(ActionEvent actionEvent) {
+    public void onLangileaEzabatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader langileaEzabatu = new FXMLLoader(App.class.getResource("langileaEzabatu.fxml"));
+        Scene scene = new Scene(langileaEzabatu.load());
+        LangileaEzabatuController lec = langileaEzabatu.getController();
+        Stage usingStage = this.getUsingStage();
+        lec.setErabiltzailea(erab);
+        lec.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Langilea ezabatzeko menua");
+        usingStage.show();
     }
 
     public void onLangileaEditatuBotoiaClick(ActionEvent actionEvent) {
