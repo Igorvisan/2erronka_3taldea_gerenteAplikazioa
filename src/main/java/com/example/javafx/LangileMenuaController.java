@@ -1,5 +1,6 @@
 package com.example.javafx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -67,5 +68,25 @@ public class LangileMenuaController extends BaseController {
         usingStage.setScene(scene);
         usingStage.setTitle("Hasierako Menua");
         usingStage.show();
+    }
+
+    public void onLangileaGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader langileaGehitu = new FXMLLoader(App.class.getResource("langileaGehitu.fxml"));
+        Scene scene = new Scene(langileaGehitu.load());
+        LangileaGehituController lgc = langileaGehitu.getController();
+        Stage usingStage = this.getUsingStage();
+        lgc.setErabiltzailea(erab);
+        lgc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Langilea gehitzeko galdetegia");
+        usingStage.show();
+    }
+
+    public void onLangileaEzabatuBotoiaClick(ActionEvent actionEvent) {
+    }
+
+    public void onLangileaEditatuBotoiaClick(ActionEvent actionEvent) {
     }
 }

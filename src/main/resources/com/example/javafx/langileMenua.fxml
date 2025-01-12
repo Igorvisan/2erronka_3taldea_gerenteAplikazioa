@@ -28,9 +28,9 @@
         <!-- Botones en fila horizontal justo debajo de la tabla -->
         <HBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="420.0">
             <children>
-                <Button fx:id="btnGehitu" text="Langilea Gehitu" prefHeight="40.0" prefWidth="150.0" />
-                <Button fx:id="btnEzabatu" text="Langilea Ezabatu" prefHeight="40.0" prefWidth="150.0" />
-                <Button fx:id="btnEditatu" text="Langilea Editatu" prefHeight="40.0" prefWidth="150.0" />
+                <Button fx:id="btnGehitu" onAction="#onLangileaGehituBotoiaClick" text="Langilea Gehitu" prefHeight="40.0" prefWidth="150.0" />
+                <Button fx:id="btnEzabatu" onAction="#onLangileaEzabatuBotoiaClick" text="Langilea Ezabatu" prefHeight="40.0" prefWidth="150.0" />
+                <Button fx:id="btnEditatu" onAction="#onLangileaEditatuBotoiaClick" text="Langilea Editatu" prefHeight="40.0" prefWidth="150.0" />
             </children>
         </HBox>
     </children>

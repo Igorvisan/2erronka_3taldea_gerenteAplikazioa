@@ -1,11 +1,14 @@
 package com.example.javafx;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 
 public class LangileaDbKudeaketa {
 
@@ -60,4 +63,40 @@ public class LangileaDbKudeaketa {
 
         return langileenLista;
     }
+
+    public static void langileaGehitu(Langilea langilea) {
+        String query = "INSERT INTO langile (izena, email, pasahitza, lan_postua) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+
+            stmt.setString(1, langilea.getIzena());
+            stmt.setString(2, langilea.getEmail());
+            stmt.setString(3, langilea.getPasahitza());
+            stmt.setString(4, langilea.getLanPostua());
+
+            // Ejecutar la actualización de la base de datos
+            int filasAfectadas = stmt.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                // Obtener el id generado
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int generatedId = generatedKeys.getInt(1); // El primer campo es el id autoincremental
+                        langilea.setId(generatedId); // Establecer el id generado al objeto Langilea
+                        String izena = "Langilea Gehitu";
+                        String mezuLuzea = "Langilea zuzen gehitu da. Honako hau da bere id-a: " + generatedId;
+                        mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            String izena = "Errorea";
+            String mezuLuzea = "Errorea langilea gehitzean: " + e.getMessage();
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+        }
+    }
+
 }
