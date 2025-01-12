@@ -67,7 +67,18 @@ public class MahaiaMenuaController extends BaseController {
 
     }
 
-    public void onMahaiaGehituBotoiaClick(ActionEvent actionEvent) {
+    public void onMahaiaGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader mahaiaGehitu = new FXMLLoader(App.class.getResource("mahaiaGehitu.fxml"));
+        Scene scene = new Scene(mahaiaGehitu.load());
+        MahaiaGehituController mgc = mahaiaGehitu.getController();
+        Stage usingStage = this.getUsingStage();
+        mgc.setErabiltzailea(erab);
+        mgc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Mahaia gehitzeko galdetegia");
+        usingStage.show();
     }
 
     public void onMahaiaEzabatuBotoiaClick(ActionEvent actionEvent) {

@@ -5,11 +5,11 @@ public class Mahaia {
     private int gehienezkoKopurua;
     private boolean libre;
 
-    public Mahaia() {}
+    public Mahaia() {this.libre = true;}
     public Mahaia(int id, int gehienezkoKopurua, boolean libre) {
         this.id = id;
         this.gehienezkoKopurua = gehienezkoKopurua;
-        this.libre = libre;
+        this.libre = true;
     }
     public int getId() {
         return id;
