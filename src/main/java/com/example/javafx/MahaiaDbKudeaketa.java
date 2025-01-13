@@ -98,6 +98,35 @@ public class MahaiaDbKudeaketa {
             return false;
         }
     }
+    public static void mahaiaEzabatu(int mahaiaId) {
+        String query = "DELETE FROM mahaia WHERE id = ?";
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Establecer el ID de la mesa a eliminar
+            stmt.setInt(1, mahaiaId);
+
+            // Ejecutar la actualización de la base de datos
+            int filasAfectadas = stmt.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                String izena = "Mahaia Ezabatuta";
+                String mezuLuzea = "Mahaia zuzen ezabatu da.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+            } else {
+                String izena = "Errorea";
+                String mezuLuzea = "Ez da mahaia ezabatu. Berriro saiatu mesedez.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            }
+
+        } catch (SQLException e) {
+            String izena = "Errorea";
+            String mezuLuzea = "Errorea mahaia ezabatzean: " + e.getMessage();
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
 
 
 }

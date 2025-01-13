@@ -83,7 +83,18 @@ public class MahaiaMenuaController extends BaseController {
         usingStage.show();
     }
 
-    public void onMahaiaEzabatuBotoiaClick(ActionEvent actionEvent) {
+    public void onMahaiaEzabatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader mahaiaEzabatu = new FXMLLoader(App.class.getResource("mahaiaEzabatu.fxml"));
+        Scene scene = new Scene(mahaiaEzabatu.load());
+        MahaiaEzabatuController mezc = mahaiaEzabatu.getController();
+        Stage usingStage = this.getUsingStage();
+        mezc.setErabiltzailea(erab);
+        mezc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Mahaia ezabatzeko menua");
+        usingStage.show();
     }
 
     public void onMahaiaEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
