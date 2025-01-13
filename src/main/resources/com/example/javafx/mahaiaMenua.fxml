@@ -21,7 +21,6 @@
             <columns>
                 <TableColumn fx:id="idColumn" text="Mahai Zenbakia" />
                 <TableColumn fx:id="komentsalColumn" text="Komentsal Kopurua" />
-                <TableColumn fx:id="libreColumn" text="Libre" />
             </columns>
         </TableView>
 

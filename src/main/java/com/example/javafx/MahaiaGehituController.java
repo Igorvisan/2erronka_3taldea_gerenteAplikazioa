@@ -17,7 +17,6 @@ public class MahaiaGehituController extends BaseController {
     private Label erabiltzailea;
     @FXML
     private TextField zenbakiaField;
-
     @FXML
     private TextField komentsalField;
 
@@ -36,7 +35,7 @@ public class MahaiaGehituController extends BaseController {
         mmc.setErabiltzailea(erab);
         mmc.setUsingStage(usingStage);
         usingStage.setScene(scene);
-        usingStage.setTitle("Langile Menua");
+        usingStage.setTitle("Mahaien Menua");
         usingStage.show();
     }
 
@@ -52,19 +51,18 @@ public class MahaiaGehituController extends BaseController {
             return;
         }
 
-        // Crear el nuevo trabajador
-        Mahaia mahaiBerria = new Mahaia();
-        mahaiBerria.setId(Integer.parseInt(zenbakia));
-        mahaiBerria.setGehienezkoKopurua(Integer.parseInt(komentsal));
+        // Crear el nuevo objeto Mahaia
+        Mahaia mahaiBerria = new Mahaia(Integer.parseInt(zenbakia), Integer.parseInt(komentsal));
 
+        // Llamar al método para agregar el nuevo Mahaia a la base de datos
         MahaiaDbKudeaketa.mahaiaGehitu(mahaiBerria);
 
         // Limpiar los campos después de añadir
         zenbakiaField.clear();
         komentsalField.clear();
 
+        // Redirigir al menú principal
         String erab = erabiltzailea.getText();
-
         FXMLLoader mahaiaMenua = new FXMLLoader(App.class.getResource("mahaiaMenua.fxml"));
         Scene scene = new Scene(mahaiaMenua.load());
         MahaiaMenuaController mmc = mahaiaMenua.getController();
@@ -72,7 +70,7 @@ public class MahaiaGehituController extends BaseController {
         mmc.setErabiltzailea(erab);
         mmc.setUsingStage(usingStage);
         usingStage.setScene(scene);
-        usingStage.setTitle("Langile Menua");
+        usingStage.setTitle("Mahaien Menua");
         usingStage.show();
     }
 
