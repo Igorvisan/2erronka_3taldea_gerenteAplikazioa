@@ -101,6 +101,17 @@ public class ErreserbaMenuaController extends BaseController {
         usingStage.show();
     }
 
-    public void onErreserbaEditatuBotoiaClick(ActionEvent actionEvent) {
+    public void onErreserbaEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader erreserbaEditatu = new FXMLLoader(App.class.getResource("erreserbaEditatu.fxml"));
+        Scene scene = new Scene(erreserbaEditatu.load());
+        ErreserbaEditatuController eedc = erreserbaEditatu.getController();
+        Stage usingStage = this.getUsingStage();
+        eedc.setErabiltzailea(erab);
+        eedc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Erreserba editatzeko galdetegia");
+        usingStage.show();
     }
 }

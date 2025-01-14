@@ -190,5 +190,93 @@ public class ErreserbaDbKudeaketa {
             e.printStackTrace(); // Imprimir el error completo para depuración
         }
     }
+    public static boolean editatuErreserba(Erreserba erreserbaEditatua) {
+        String selectQuery = "SELECT gehienezko_kopurua FROM mahaia WHERE id = ?";
+
+        String checkReservaQuery = "SELECT COUNT(*) FROM erreserba WHERE mahaia_id = ? AND erreserba_data = ? AND id != ?";  // Aseguramos que no se compruebe la misma reserva
+
+        try (Connection conn = DbKonexioa.getKonexioa()) {
+            // Verificar que el número de personas no sea 0 o negativo
+            if (erreserbaEditatua.getPertsonaKopurua() <= 0) {
+                mezuaPantailaratu("Errorea", "Pertsona kopurua ezin da 0 edo negatiboa izan.", Alert.AlertType.ERROR);
+                return false;
+            }
+
+            // Obtener el número máximo de personas para la mesa
+            int gehienezkoKopurua = 0;
+            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
+                selectStmt.setInt(1, erreserbaEditatua.getMahiaId());
+                try (ResultSet rs = selectStmt.executeQuery()) {
+                    if (rs.next()) {
+                        gehienezkoKopurua = rs.getInt("gehienezko_kopurua");
+                    } else {
+                        mezuaPantailaratu("Errorea", "Mahaia ez da existitzen.", Alert.AlertType.ERROR);
+                        return false;
+                    }
+                }
+            }
+
+            // Validar si el número de personas excede el límite de la mesa
+            if (gehienezkoKopurua < erreserbaEditatua.getPertsonaKopurua()) {
+                mezuaPantailaratu(
+                        "Errorea",
+                        "Ezingo da erreserba editatu: Mahaian gehienezko pertsonen kopurua gainditzen du.",
+                        Alert.AlertType.ERROR
+                );
+                return false;
+            }
+
+            // Validar la fecha de la reserva (mes y día)
+            LocalDate fechaReserva = erreserbaEditatua.getErreserbaDate().toLocalDate();
+            int mes = fechaReserva.getMonthValue();
+            int dia = fechaReserva.getDayOfMonth();
+
+            if (mes < 1 || mes > 12) {
+                mezuaPantailaratu("Errorea", "Hilabeteak 1 eta 12 artean egon behar du.", Alert.AlertType.ERROR);
+                return false;
+            }
+
+            if (dia < 1 || dia > 31) {
+                mezuaPantailaratu("Errorea", "Egunak 1 eta 31 artean egon behar da.", Alert.AlertType.ERROR);
+                return false;
+            }
+
+            // Verificar si la mesa ya está reservada para esa fecha
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkReservaQuery)) {
+                checkStmt.setInt(1, erreserbaEditatua.getMahiaId());
+                checkStmt.setDate(2, erreserbaEditatua.getErreserbaDate());
+                checkStmt.setInt(3, erreserbaEditatua.getId());  // Aseguramos que no se compruebe la misma reserva
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        mezuaPantailaratu(
+                                "Errorea",
+                                "Mahaia jada erreserbatuta dago egun horretan.",
+                                Alert.AlertType.ERROR
+                        );
+                        return false;  // La mesa ya está reservada en esa fecha
+                    }
+                }
+            }
+
+            // Realizar la actualización de la reserva en la base de datos
+            String query = "UPDATE erreserba SET erreserba_izena = ?, erreserba_data = ?, pertsona_kopurua = ?, mahaia_id = ? WHERE id = ?";
+
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, erreserbaEditatua.getErreserbaIzena());
+                stmt.setDate(2, erreserbaEditatua.getErreserbaDate());  // Fecha
+                stmt.setInt(3, erreserbaEditatua.getPertsonaKopurua());  // Personas
+                stmt.setInt(4, erreserbaEditatua.getMahiaId());  // Mesa
+                stmt.setInt(5, erreserbaEditatua.getId());  // ID de la reserva
+
+                int rowsAffected = stmt.executeUpdate();
+                return rowsAffected > 0;  // Retorna true si la actualización fue exitosa
+            }
+        } catch (SQLException e) {
+            System.err.println("Error actualizando los datos de la reserva: " + e.getMessage());
+            mezuaPantailaratu("Errorea", "Errorea erreserba editatzean: " + e.getMessage(), Alert.AlertType.ERROR);
+            return false;
+        }
+    }
+
 }
 
