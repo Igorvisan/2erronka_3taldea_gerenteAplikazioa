@@ -160,5 +160,35 @@ public class ErreserbaDbKudeaketa {
         return false;
     }
 
+    public static void erreserbaEzabatu(int erreserbaId) {
+        String query = "DELETE FROM erreserba WHERE id = ?"; // Query para eliminar un trabajador por ID
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, erreserbaId); // Usar el ID del trabajador
+
+            System.out.println("Ejecutando consulta: " + stmt.toString()); // Imprimir la consulta para depuración
+
+            int filasAfectadas = stmt.executeUpdate();
+            System.out.println("Filas afectadas: " + filasAfectadas); // Ver cuántas filas se han afectado
+
+            if (filasAfectadas > 0) {
+                String izena = "Erreserba Ezabatu";
+                String mezuLuzea = "Erreserba arrakastaz ezabatu da.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+            } else {
+                String izena = "Errorea";
+                String mezuLuzea = "Ez da erreserba aurkitu.";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            }
+
+        } catch (SQLException e) {
+            String izena = "Errorea";
+            String mezuLuzea = "Errorea erreserba ezabatzean: " + e.getMessage();
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            e.printStackTrace(); // Imprimir el error completo para depuración
+        }
+    }
 }
 

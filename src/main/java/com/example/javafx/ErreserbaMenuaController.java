@@ -83,11 +83,22 @@ public class ErreserbaMenuaController extends BaseController {
         egc.setErabiltzailea(erab);
         egc.setUsingStage(usingStage);
         usingStage.setScene(scene);
-        usingStage.setTitle("Hasierako Menua");
+        usingStage.setTitle("Erreserba Gehitzeko Galdetegia");
         usingStage.show();
     }
 
-    public void onErreserbaEzabatuBotoiaClick(ActionEvent actionEvent) {
+    public void onErreserbaEzabatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader erreserbaEzabatu = new FXMLLoader(App.class.getResource("erreserbaEzabatu.fxml"));
+        Scene scene = new Scene(erreserbaEzabatu.load());
+        ErreserbaEzabatuController eezc = erreserbaEzabatu.getController();
+        Stage usingStage = this.getUsingStage();
+        eezc.setErabiltzailea(erab);
+        eezc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Erreserba Ezabatzeko Menua");
+        usingStage.show();
     }
 
     public void onErreserbaEditatuBotoiaClick(ActionEvent actionEvent) {
