@@ -29,8 +29,8 @@ public class Erreserba {
     public void setErreserbaIzena(String erreserbaIzena) {
         this.erreserbaIzena = erreserbaIzena;
     }
-    public Date getErreserbaDate() {
-        return erreserbaDate;
+    public java.sql.Date getErreserbaDate() {
+        return (java.sql.Date) erreserbaDate;
     }
     public void setErreserbaDate(Date erreserbaDate) {
         this.erreserbaDate = erreserbaDate;
@@ -43,5 +43,8 @@ public class Erreserba {
     }
     public void setMahiaId(int mahiaId) {
         this.mahiaId = mahiaId;
+    }
+    public void setPertsonaKopurua(int pertsonaKopurua) {
+        this.pertsonaKopurua = pertsonaKopurua;
     }
 }

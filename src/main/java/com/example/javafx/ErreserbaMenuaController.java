@@ -73,7 +73,18 @@ public class ErreserbaMenuaController extends BaseController {
         usingStage.show();
     }
 
-    public void onErreserbaGehituBotoiaClick(ActionEvent actionEvent) {
+    public void onErreserbaGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader erreserbaGehitu = new FXMLLoader(App.class.getResource("erreserbaGehitu.fxml"));
+        Scene scene = new Scene(erreserbaGehitu.load());
+        ErreserbaGehituController egc = erreserbaGehitu.getController();
+        Stage usingStage = this.getUsingStage();
+        egc.setErabiltzailea(erab);
+        egc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Hasierako Menua");
+        usingStage.show();
     }
 
     public void onErreserbaEzabatuBotoiaClick(ActionEvent actionEvent) {
