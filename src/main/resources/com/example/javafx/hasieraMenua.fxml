@@ -23,12 +23,14 @@
             <children>
                 <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Aukeratu Zerbitzua"
                        textFill="#CFD0CE"/>
-                <Button style="-fx-background-color: #666E6C; -fx-text-fill: #CFD0CE; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                <Button style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
                         text="Mahaiak Kudeatu" onAction="#onMahaiakKudeatuBotoiaClick" prefWidth="200.0"/>
-                <Button style="-fx-background-color: #666E6C; -fx-text-fill: #CFD0CE; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                <Button style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
                         text="Erreserbak Kudeatu" onAction="#onErreserbakKudeatuBotoiaClick" prefWidth="200.0"/>
-                <Button style="-fx-background-color: #666E6C; -fx-text-fill: #CFD0CE; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                <Button style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
                         text="Langileak Kudeatu" onAction="#onLangileakKudeatuBotoiaClick" prefWidth="200.0"/>
+                <Button style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
+                        text="Txat-a" onAction="#onTxataBotoiaClick" prefWidth="200.0"/>
             </children>
         </VBox>
     </children>

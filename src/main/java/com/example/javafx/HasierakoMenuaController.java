@@ -63,4 +63,26 @@ public class HasierakoMenuaController extends BaseController {
         usingStage.setTitle("Erreserba Menua");
         usingStage.show();
     }
+
+    public void onTxataBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader txata = new FXMLLoader(getClass().getResource("txata.fxml"));
+        Scene scene = new Scene(txata.load());
+        TxatController tc = txata.getController();  // Obtener el controlador
+
+// Verificar si el controlador es el esperado
+        if (tc != null) {
+            System.out.println("Controlador cargado correctamente");
+        } else {
+            System.out.println("Error al cargar el controlador");
+        }
+
+        Stage usingStage = this.getUsingStage();
+        tc.setErabiltzailea(erab);
+        tc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Erreserba Menua");
+        usingStage.show();
+    }
 }
