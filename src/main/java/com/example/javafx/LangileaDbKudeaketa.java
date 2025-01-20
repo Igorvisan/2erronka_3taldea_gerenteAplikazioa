@@ -39,7 +39,7 @@ public class LangileaDbKudeaketa {
     }
 
     public static ObservableList<Langilea> getAllLangileak() {
-        String query = "SELECT id, izena, email, lan_postua, pasahitza FROM langile";
+        String query = "SELECT id, izena, email, lan_postua, pasahitza, txat_baimena FROM langile";
         ObservableList<Langilea> langileenLista = FXCollections.observableArrayList();
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -52,7 +52,8 @@ public class LangileaDbKudeaketa {
                         rs.getString("izena"),
                         rs.getString("email"),
                         rs.getString("lan_postua"),
-                        rs.getString("pasahitza")
+                        rs.getString("pasahitza"),
+                        rs.getBoolean("txat_baimena")
 
                 );
                 langileenLista.add(langilea);
@@ -66,7 +67,7 @@ public class LangileaDbKudeaketa {
     }
 
     public static void langileaGehitu(Langilea langilea) {
-        String query = "INSERT INTO langile (izena, email, pasahitza, lan_postua) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO langile (izena, email, pasahitza, lan_postua, txat_baimena) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -76,6 +77,7 @@ public class LangileaDbKudeaketa {
             stmt.setString(2, langilea.getEmail());
             stmt.setString(3, langilea.getPasahitza());
             stmt.setString(4, langilea.getLanPostua());
+            stmt.setBoolean(5, langilea.isTxatBaimena()); // Cambiado índice a 5
 
             // Ejecutar la actualización de la base de datos
             int filasAfectadas = stmt.executeUpdate();
@@ -109,6 +111,7 @@ public class LangileaDbKudeaketa {
             e.printStackTrace();
         }
     }
+
     public static void langileaEzabatu(int langileId) {
         String query = "DELETE FROM langile WHERE id = ?"; // Query para eliminar un trabajador por ID
 
@@ -140,9 +143,10 @@ public class LangileaDbKudeaketa {
         }
     }
     public static boolean editatuLangilea(Langilea langilea) {
-        String query = "UPDATE langile SET izena = ?, email = ?, lan_postua = ?, pasahitza = ? WHERE id = ?";
+        // Consulta SQL para actualizar los datos del trabajador
+        String query = "UPDATE langile SET izena = ?, email = ?, lan_postua = ?, pasahitza = ?, txat_baimena = ? WHERE id = ?";
 
-        try (Connection conn = DbKonexioa.getKonexioa();
+        try (Connection conn = DbKonexioa.getKonexioa(); // Obtención de la conexión a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Asignar los parámetros al PreparedStatement
@@ -150,16 +154,50 @@ public class LangileaDbKudeaketa {
             stmt.setString(2, langilea.getEmail());
             stmt.setString(3, langilea.getLanPostua());
             stmt.setString(4, langilea.getPasahitza());
-            stmt.setInt(5, langilea.getId());
+            stmt.setBoolean(5, langilea.isTxatBaimena());
+            stmt.setInt(6, langilea.getId());
 
+            // Ejecutar la actualización y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
 
+            // Si se actualizaron filas, la operación fue exitosa
             return rowsAffected > 0;
+
         } catch (SQLException e) {
-            System.err.println("Error actualizando los datos del empleado: " + e.getMessage());
+            // Captura y muestra los errores de SQL con más detalle
+            System.err.println("Error al actualizar los datos del empleado con ID " + langilea.getId() + ": " + e.getMessage());
             return false;
         }
     }
+    public static Langilea langileaLortuIzenaBidez(String izena) {
+        String query = "SELECT id, izena, email, lan_postua, pasahitza, txat_baimena FROM langile WHERE izena = ?";
+        Langilea langilea = null;
+
+        try (Connection conn = DbKonexioa.getKonexioa();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, izena);  // Establecemos el nombre del trabajador para la consulta
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Si se encuentra un resultado, crear el objeto Langilea con los datos obtenidos
+                langilea = new Langilea(
+                        rs.getInt("id"),
+                        rs.getString("izena"),
+                        rs.getString("email"),
+                        rs.getString("lan_postua"),
+                        rs.getString("pasahitza"),
+                        rs.getBoolean("txat_baimena")
+                );
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errorea langilea eskuratzerakoan: " + e.getMessage());
+        }
+
+        return langilea;  // Devuelve el objeto Langilea si lo encontró, o null si no lo encontró
+    }
+
 
 
 }

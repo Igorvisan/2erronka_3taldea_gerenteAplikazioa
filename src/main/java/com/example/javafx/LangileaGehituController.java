@@ -26,6 +26,8 @@ public class LangileaGehituController extends BaseController {
 
     @FXML
     private PasswordField pasahitzaField;
+    @FXML
+    private ComboBox txatBaimenaComboBox;
 
     @FXML
     public void setErabiltzailea(String izena) {
@@ -52,6 +54,15 @@ public class LangileaGehituController extends BaseController {
         String pasahitza = pasahitzaField.getText();
         String lanPostua = lanPostuaComboBox.getValue().toString();
 
+        // Verificar la selección del ComboBox para "txat_baimena"
+        String txatBaimenaSeleccionado = (String) txatBaimenaComboBox.getSelectionModel().getSelectedItem();
+        Boolean txatBaimena = false; // Valor predeterminado (false)
+
+        // Si la selección es "Bai", asignar true
+        if ("Bai".equals(txatBaimenaSeleccionado)) {
+            txatBaimena = true;
+        }
+
         // Verificar si los campos están vacíos
         if (izena.isEmpty() || email.isEmpty() || pasahitza.isEmpty() || lanPostua.isEmpty()) {
             String izenaError = "Errorea";
@@ -66,8 +77,9 @@ public class LangileaGehituController extends BaseController {
         langileBerria.setEmail(email);
         langileBerria.setPasahitza(pasahitza);
         langileBerria.setLanPostua(lanPostua);
+        langileBerria.setTxatBaimena(txatBaimena); // Establecer el valor de txat_baimena
 
-
+        // Llamada a la base de datos para agregar el trabajador
         LangileaDbKudeaketa.langileaGehitu(langileBerria);
 
         // Limpiar los campos después de añadir
@@ -76,6 +88,7 @@ public class LangileaGehituController extends BaseController {
         pasahitzaField.clear();
         lanPostuaComboBox.setValue(null);
 
+        // Redirigir al menú de trabajadores
         String erab = erabiltzailea.getText();
 
         FXMLLoader langileMenua = new FXMLLoader(App.class.getResource("langileMenua.fxml"));
@@ -88,4 +101,6 @@ public class LangileaGehituController extends BaseController {
         usingStage.setTitle("Langile Menua");
         usingStage.show();
     }
+
+
 }

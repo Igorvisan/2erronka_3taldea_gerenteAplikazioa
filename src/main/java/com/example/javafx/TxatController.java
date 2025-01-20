@@ -50,11 +50,8 @@ public class TxatController extends BaseController {
                 String mensaje;
                 while ((mensaje = in.readLine()) != null) {
                     System.out.println("Mensaje recibido del servidor: " + mensaje);
-                    // Solo mostrar los mensajes del servidor que no sean del usuario
-                    if (!mensaje.startsWith("Tú:")) {
-                        final String mensajeFinal = mensaje;
-                        Platform.runLater(() -> messagesArea.appendText(mensajeFinal + "\n"));
-                    }
+                    final String mensajeFinal = mensaje;
+                    Platform.runLater(() -> messagesArea.appendText(mensajeFinal + "\n"));
                 }
 
                 System.out.println("El servidor ha cerrado la conexión o no hay más mensajes.");
@@ -79,7 +76,7 @@ public class TxatController extends BaseController {
                 // Enviar mensaje al servidor
                 out.println(mensajeCompleto);
 
-                // Mostrar el mensaje localmente en el área de mensajes, solo el mensaje enviado por el usuario
+                // Mostrar el mensaje localmente en el área de mensajes
                 messagesArea.appendText("Tú: " + mensaje + "\n");
 
                 // Limpiar el campo de texto
@@ -115,6 +112,7 @@ public class TxatController extends BaseController {
 
     @FXML
     public void onAtzeaBotoiaClick(MouseEvent mouseEvent) throws IOException {
+
         String erab = erabiltzailea.getText();
 
         FXMLLoader hasierakoMenua = new FXMLLoader(App.class.getResource("hasieraMenua.fxml"));
@@ -126,7 +124,7 @@ public class TxatController extends BaseController {
         usingStage.setScene(scene);
         usingStage.setTitle("Hasierako Menua");
         usingStage.show();
-        cerrarConexion();
+
     }
 
     @FXML
@@ -142,3 +140,4 @@ public class TxatController extends BaseController {
         }
     }
 }
+

@@ -6,14 +6,16 @@ public class Langilea {
     private String email;
     private String pasahitza;
     private String lanPostua;
+    private boolean txatBaimena;
 
     public Langilea() {}
-    public Langilea(int id, String izena, String email, String lanPostua, String pasahitza) {
+    public Langilea(int id, String izena, String email, String lanPostua, String pasahitza, boolean txatBaimena) {
         this.id = id;
         this.izena = izena;
         this.email = email;
         this.lanPostua = lanPostua;
         this.pasahitza = pasahitza;
+        this.txatBaimena = txatBaimena;
     }
     public int getId() {
         return id;
@@ -44,5 +46,13 @@ public class Langilea {
     }
     public void setLanPostua(String lanPostua) {
         this.lanPostua = lanPostua;
+    }
+
+    public boolean isTxatBaimena() {
+        return txatBaimena;
+    }
+
+    public void setTxatBaimena(boolean txatBaimena) {
+        this.txatBaimena = txatBaimena;
     }
 }

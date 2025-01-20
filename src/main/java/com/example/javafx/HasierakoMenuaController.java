@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 
 public class HasierakoMenuaController extends BaseController {
     @FXML
@@ -67,20 +70,38 @@ public class HasierakoMenuaController extends BaseController {
     public void onTxataBotoiaClick(ActionEvent actionEvent) throws IOException {
         String erab = erabiltzailea.getText();
 
-        FXMLLoader txata = new FXMLLoader(getClass().getResource("txata.fxml"));
-        Scene scene = new Scene(txata.load());
-        TxatController tc = txata.getController();  // Obtener el controlador
+        // Obtener el Langilea a partir del nombre (erabiltzailea)
+        Langilea langilea = LangileaDbKudeaketa.langileaLortuIzenaBidez(erab);
 
-// Verificar si el controlador es el esperado
-        if (tc != null) {
-            System.out.println("Controlador cargado correctamente");
+        if (langilea != null && langilea.isTxatBaimena()) {
+            // Si tiene permiso para el chat
+            FXMLLoader txata = new FXMLLoader(getClass().getResource("txata.fxml"));
+            Scene scene = new Scene(txata.load());
+            TxatController tc = txata.getController();  // Obtener el controlador
+            Stage usingStage = this.getUsingStage();
+            tc.setErabiltzailea(erab);
+            tc.setUsingStage(usingStage);
+            usingStage.setScene(scene);
+            usingStage.setTitle("Erreserba Menua");
+            usingStage.show();
         } else {
-            System.out.println("Error al cargar el controlador");
+            // Si no tiene permiso para el chat
+            String izenaError = "Errorea";
+            String mezuLuzeaError = "Ez duzu txat-erako baimenik.";
+            mezuaPantailaratu(izenaError, mezuLuzeaError, Alert.AlertType.ERROR);
         }
+    }
 
+
+    public void onSaioaItxiBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader saioaHasi = new FXMLLoader(App.class.getResource("saioaHasi.fxml"));
+        Scene scene = new Scene(saioaHasi.load());
+        SaioaHasiController shc = saioaHasi.getController();
         Stage usingStage = this.getUsingStage();
-        tc.setErabiltzailea(erab);
-        tc.setUsingStage(usingStage);
+        shc.setErabiltzailea(erab);
+        shc.setUsingStage(usingStage);
         usingStage.setScene(scene);
         usingStage.setTitle("Erreserba Menua");
         usingStage.show();

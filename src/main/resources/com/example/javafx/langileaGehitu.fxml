@@ -28,12 +28,16 @@
                     <ColumnConstraints halignment="RIGHT"/>
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
+
+                <!-- Izena -->
                 <Label text="Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
                 <TextField fx:id="izenaField" promptText="Sartu izena" GridPane.columnIndex="1" style="-fx-font-size: 12px;"/>
 
+                <!-- Email -->
                 <Label text="Email:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="1"/>
                 <TextField fx:id="emailField" promptText="Sartu email-a" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size: 12px;"/>
 
+                <!-- Lan Postua -->
                 <Label text="Lan Postua:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="2"/>
                 <ComboBox fx:id="lanPostuaComboBox" promptText="Hautatu lan postua" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-size: 12px;">
                     <items>
@@ -46,8 +50,20 @@
                     </items>
                 </ComboBox>
 
+                <!-- Pasahitza -->
                 <Label text="Pasahitza:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="3"/>
                 <PasswordField fx:id="pasahitzaField" promptText="Sartu pasahitza" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 12px;"/>
+
+                <!-- Txat Baimena -->
+                <Label text="Txat-erako baimena du langileak?" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
+                <ComboBox fx:id="txatBaimenaComboBox" promptText="Hautatu baimena" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-size: 12px;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Bai" />
+                            <String fx:value="Ez" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
             </GridPane>
 
             <!-- Botón Guardar -->

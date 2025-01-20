@@ -28,8 +28,12 @@ public class LangileaEditatuController extends BaseController {
 
     @FXML
     private TableColumn<Langilea, String> lanPostuaColumn;
+
     @FXML
     private TableColumn<Langilea, String> pasahitzaColumn;
+
+    @FXML
+    private TableColumn<Langilea, Boolean> txatBaimenaColumn;
 
     @FXML
     private TextField izenaField;
@@ -38,10 +42,13 @@ public class LangileaEditatuController extends BaseController {
     private TextField emailField;
 
     @FXML
-    private TextField lanPostuaField;
+    private TextField pasahitzaField;
 
     @FXML
-    private TextField pasahitzaField;
+    private ComboBox<String> lanPostuaComboBox;
+
+    @FXML
+    private ComboBox<String> txatBaimenaComboBox;
 
     private Langilea aukeratutakoa;
 
@@ -51,20 +58,34 @@ public class LangileaEditatuController extends BaseController {
     }
 
     public void onEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        // Obtener los valores de los campos de edición
         String izena = izenaField.getText();
         String email = emailField.getText();
-        String lanPostua = lanPostuaField.getText();
         String pasahitza = pasahitzaField.getText();
+        String lanPostua = lanPostuaComboBox.getValue(); // Obtiene el valor seleccionado en el ComboBox
 
+        // Verificar si el ComboBox para txatBaimena tiene una selección válida
+        String txatBaimenaSeleccionado = txatBaimenaComboBox.getSelectionModel().getSelectedItem();
+        Boolean txatBaimena = "Bai".equals(txatBaimenaSeleccionado); // Asigna true si es "Bai", si no, false
 
-        int id = langileTaula.getSelectionModel().getSelectedItem().getId();
+        // Verificar que se haya seleccionado un elemento de la tabla antes de proceder
+        if (langileTaula.getSelectionModel().getSelectedItem() == null) {
+            // Si no se ha seleccionado ningún elemento en la tabla, muestra una alerta
+            FuntzioLaguntzaileak.mezuaPantailaratu(
+                    "Ez dago hautatutako langilerik",
+                    "Mesedez, hautatu langile bat editatzeko.",
+                    Alert.AlertType.WARNING
+            );
+            return; // Salir de la función si no se seleccionó nada
+        }
 
+        int id = langileTaula.getSelectionModel().getSelectedItem().getId(); // Obtiene el ID del trabajador seleccionado
 
-        Langilea langileEditatua = new Langilea(id, izena, email, lanPostua, pasahitza);
+        // Crear un objeto Langilea con los nuevos datos
+        Langilea langileEditatua = new Langilea(id, izena, email, lanPostua, pasahitza, txatBaimena);
 
-
+        // Llamar a la base de datos para editar los datos
         boolean editatuta = LangileaDbKudeaketa.editatuLangilea(langileEditatua);
-
 
         if (editatuta) {
             // Alerta de éxito utilizando la clase FuntzioLaguntzaileak
@@ -111,6 +132,7 @@ public class LangileaEditatuController extends BaseController {
 
     @FXML
     public void initialize() {
+        // Cargar los trabajadores desde la base de datos
         ObservableList<Langilea> langileak = LangileaDbKudeaketa.getAllLangileak();
 
         if (langileak != null) {
@@ -123,6 +145,7 @@ public class LangileaEditatuController extends BaseController {
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         lanPostuaColumn.setCellValueFactory(new PropertyValueFactory<>("lanPostua"));
         pasahitzaColumn.setCellValueFactory(new PropertyValueFactory<>("Pasahitza"));
+        txatBaimenaColumn.setCellValueFactory(new PropertyValueFactory<>("txatBaimena"));
 
         langileTaula.setPrefWidth(300);
         langileTaula.setPrefHeight(150);
@@ -136,8 +159,11 @@ public class LangileaEditatuController extends BaseController {
         if (aukeratutakoa != null) {
             izenaField.setText(aukeratutakoa.getIzena());
             emailField.setText(aukeratutakoa.getEmail());
-            lanPostuaField.setText(aukeratutakoa.getLanPostua());
+            lanPostuaComboBox.setValue(aukeratutakoa.getLanPostua());
             pasahitzaField.setText(aukeratutakoa.getPasahitza());
+
+            // Establecer el valor de txatBaimenaComboBox basado en la selección anterior
+            txatBaimenaComboBox.setValue(aukeratutakoa.isTxatBaimena() ? "Bai" : "Ez");
         } else {
             System.out.println("No se seleccionó ningún elemento en la tabla.");
         }
