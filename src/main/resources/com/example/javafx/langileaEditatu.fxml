@@ -61,7 +61,7 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Label text="Txaterako baimena du langileak?:"/>
+            <Label text="Txaterako baimena:"/>
             <ComboBox fx:id="txatBaimenaComboBox" promptText="Txat baimena" style="-fx-font-size: 12px;">
                 <items>
                     <FXCollections fx:factory="observableArrayList">

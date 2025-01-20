@@ -55,7 +55,7 @@
                 <PasswordField fx:id="pasahitzaField" promptText="Sartu pasahitza" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 12px;"/>
 
                 <!-- Txat Baimena -->
-                <Label text="Txat-erako baimena du langileak?" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
+                <Label text="Txat-eko baimena:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
                 <ComboBox fx:id="txatBaimenaComboBox" promptText="Hautatu baimena" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-size: 12px;">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
