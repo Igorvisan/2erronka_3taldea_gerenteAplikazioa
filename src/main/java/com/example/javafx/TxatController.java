@@ -130,7 +130,7 @@ public class TxatController extends BaseController {
     @FXML
     public void initialize() {
         System.out.println("Método initialize ejecutado.");
-        String host = "localhost"; // Dirección local
+        String host = "192.168.115.153"; // Dirección local
         int puerto = 5555; // El mismo puerto que el servidor
 
         try {

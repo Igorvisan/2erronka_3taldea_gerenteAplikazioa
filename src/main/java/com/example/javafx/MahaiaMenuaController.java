@@ -47,12 +47,7 @@ public class MahaiaMenuaController extends BaseController {
 
     public void initialize() {
         ObservableList<Mahaia> mahaiak = MahaiaDbKudeaketa.getAllMahaiak();
-
         if (mahaiak != null && !mahaiak.isEmpty()) {
-            System.out.println("Mesas cargadas: ");
-            for (Mahaia mahaia : mahaiak) {
-                System.out.println("ID: " + mahaia.getId() + ", Comensales: " + mahaia.getGehienezkoKopurua());
-            }
             mahaiaTaula.setItems(mahaiak);
         } else {
             System.out.println("No hay mesas disponibles para mostrar.");

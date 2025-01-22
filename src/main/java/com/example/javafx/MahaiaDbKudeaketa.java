@@ -25,9 +25,6 @@ public class MahaiaDbKudeaketa {
                 int id = rs.getInt("id");
                 int gehienezkoKopurua = rs.getInt("gehienezko_kopurua");
 
-                // Depuración para ver los valores que se obtienen
-                System.out.println("ID: " + id + ", Gehienezko Kopurua: " + gehienezkoKopurua);
-
                 Mahaia mahaia = new Mahaia(id, gehienezkoKopurua);
                 mahaienLista.add(mahaia);
             }

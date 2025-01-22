@@ -18,7 +18,6 @@ public class DbKonexioa {
         if (connection == null || connection.isClosed()) {  //konexioa null bada eta itxita badago funtziora sartu
             try {
                 connection = DriverManager.getConnection(Db_izena, Db_erabiltzailea, Db_pasahitza); //konexioa egin
-                System.out.println("Konexioa zuzen egin da."); // zezen egin dela ziurtatzeko mezua
             } catch (SQLException e) { //errorea idenfikatzeko excepzioa
                 System.err.println("Errorea konexioa egiterakoan: " + e.getMessage()); // errore mezua pantailaratu beharrekoa
                 throw e;
