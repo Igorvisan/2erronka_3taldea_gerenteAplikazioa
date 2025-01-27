@@ -16,7 +16,7 @@ public class MahaiaGehituController extends BaseController {
     @FXML
     private Label erabiltzailea;
     @FXML
-    private TextField zenbakiaField;
+    private TextField izenaField;
     @FXML
     private TextField komentsalField;
 
@@ -38,13 +38,12 @@ public class MahaiaGehituController extends BaseController {
         usingStage.setTitle("Mahaien Menua");
         usingStage.show();
     }
-
     public void onGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
-        String zenbakia = zenbakiaField.getText();
         String komentsal = komentsalField.getText();
+        String izena = izenaField.getText();
 
         // Verificar si los campos están vacíos
-        if (zenbakia.isEmpty() || komentsal.isEmpty()) {
+        if (izena.isEmpty() || komentsal.isEmpty()) {
             String izenaError = "Errorea";
             String mezuLuzeaError = "Datu guztiak sartu behar dituzu.";
             mezuaPantailaratu(izenaError, mezuLuzeaError, Alert.AlertType.ERROR);
@@ -52,14 +51,14 @@ public class MahaiaGehituController extends BaseController {
         }
 
         // Crear el nuevo objeto Mahaia
-        Mahaia mahaiBerria = new Mahaia(Integer.parseInt(zenbakia), Integer.parseInt(komentsal));
+        Mahaia mahaiBerria = new Mahaia(0, Integer.parseInt(komentsal), izena);
 
         // Llamar al método para agregar el nuevo Mahaia a la base de datos
         MahaiaDbKudeaketa.mahaiaGehitu(mahaiBerria);
 
         // Limpiar los campos después de añadir
-        zenbakiaField.clear();
         komentsalField.clear();
+        izenaField.clear();
 
         // Redirigir al menú principal
         String erab = erabiltzailea.getText();
@@ -73,5 +72,6 @@ public class MahaiaGehituController extends BaseController {
         usingStage.setTitle("Mahaien Menua");
         usingStage.show();
     }
+
 
 }

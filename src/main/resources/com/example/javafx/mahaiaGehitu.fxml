@@ -28,11 +28,10 @@
                     <ColumnConstraints halignment="RIGHT"/>
                     <ColumnConstraints hgrow="ALWAYS"/>
                 </columnConstraints>
-                <Label text="Zenbakia:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
-                <TextField fx:id="zenbakiaField" promptText="Sartu zenbakia" GridPane.columnIndex="1" style="-fx-font-size: 12px;"/>
-
                 <Label text="Gehienezko Komentsal Kopurua:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="1"/>
                 <TextField fx:id="komentsalField" promptText="Sartu komentsal maximo kopurua" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size: 12px;"/>
+                <Label text="Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+                <TextField fx:id="izenaField" promptText="Sartu izena" GridPane.columnIndex="1" style="-fx-font-size: 12px;"/>
             </GridPane>
 
             <!-- Botón Guardar -->

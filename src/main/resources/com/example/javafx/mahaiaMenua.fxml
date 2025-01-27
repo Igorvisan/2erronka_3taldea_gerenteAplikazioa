@@ -19,7 +19,7 @@
         <!-- Tabla centrada y más grande -->
         <TableView fx:id="mahaiaTaula" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0" prefHeight="300.0">
             <columns>
-                <TableColumn fx:id="idColumn" text="Mahai Zenbakia" />
+                <TableColumn fx:id="izenaColumn" text="Mahai izena" />
                 <TableColumn fx:id="komentsalColumn" text="Komentsal Kopurua" />
             </columns>
         </TableView>

@@ -91,7 +91,6 @@ public class TxatController extends BaseController {
 
     public void cerrarConexion() {
         try {
-            // Cerrar los recursos si no están ya cerrados
             if (in != null) in.close();
             if (out != null) out.close();
             if (socket != null && !socket.isClosed()) socket.close();

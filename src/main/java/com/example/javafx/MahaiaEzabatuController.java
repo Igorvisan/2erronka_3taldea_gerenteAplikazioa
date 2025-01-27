@@ -22,7 +22,7 @@ public class MahaiaEzabatuController extends BaseController {
     @FXML
     private TableView<Mahaia> mahaienTaula;
     @FXML
-    private TableColumn<Mahaia, Integer> zenbakiaColumn;
+    private TableColumn<Mahaia, String> izenaColumn;
     @FXML
     private TableColumn<Mahaia, Integer> komentsalColumn;
 
@@ -114,12 +114,12 @@ public class MahaiaEzabatuController extends BaseController {
         mahaienTaula.setItems(mahaiak);
 
         // Configuración de las columnas
-        zenbakiaColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
         komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("gehienezkoKopurua"));
 
 
         // Establecer el tamaño de las columnas
-        zenbakiaColumn.setPrefWidth(100);
+        izenaColumn.setPrefWidth(100);
         komentsalColumn.setPrefWidth(100);
 
         // Establecer el tamaño de la tabla

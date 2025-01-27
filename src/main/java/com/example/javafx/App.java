@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class App extends Application {
+
+    private TxatController txatController; // Asegúrate de tener una referencia al controlador del chat
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader saioaHasi = new FXMLLoader(App.class.getResource("saioaHasi.fxml"));
@@ -19,13 +22,22 @@ public class App extends Application {
         stage.setTitle("Saioa Hasi");
         stage.setMaximized(true);
         SaioaHasiController shc = saioaHasi.getController();
-        stage.setWidth(javafx.stage.Screen.getPrimary().getVisualBounds().getWidth());
-        stage.setHeight(javafx.stage.Screen.getPrimary().getVisualBounds().getHeight());
-
+        stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
 
         shc.setUsingStage(stage);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+
+        // Aquí cierras la conexión de chat si está activa
+        if (txatController != null) {
+            txatController.cerrarConexion();
+        }
     }
 
     public static void main(String[] args) {

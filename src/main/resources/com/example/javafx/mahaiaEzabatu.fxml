@@ -26,7 +26,7 @@
     <!-- Tabla de trabajadores -->
     <TableView fx:id="mahaienTaula" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" AnchorPane.bottomAnchor="150.0">
         <columns>
-            <TableColumn text="Zenbakia" fx:id="zenbakiaColumn" prefWidth="150.0">
+            <TableColumn text="Izena" fx:id="izenaColumn" prefWidth="150.0">
                 <cellValueFactory>
                     <PropertyValueFactory property="id"/>
                 </cellValueFactory>

@@ -29,7 +29,7 @@ public class MahaiaEditatuController extends BaseController {
 
 
     @FXML
-    private TextField zenbakiaField;
+    private TextField izenaField;
 
     @FXML
     private TextField komentsalField;
@@ -56,26 +56,38 @@ public class MahaiaEditatuController extends BaseController {
         usingStage.setTitle("Mahaien Menua");
         usingStage.show();
     }
-
     public void onEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
-
-        Integer zenbakia = Integer.parseInt(zenbakiaField.getText());
+        // Obtener los valores de los campos de edición
         Integer komentsalKop = Integer.parseInt(komentsalField.getText());
+        String izena = izenaField.getText();
 
+        // Verificar que se haya seleccionado un elemento de la tabla antes de proceder
+        if (mahaienTaula.getSelectionModel().getSelectedItem() == null) {
+            // Si no se ha seleccionado ningún elemento en la tabla, muestra una alerta
+            FuntzioLaguntzaileak.mezuaPantailaratu(
+                    "Ez dago hautatutako mahairik",
+                    "Mesedez, hautatu mahai bat editatzeko.",
+                    Alert.AlertType.WARNING
+            );
+            return; // Salir de la función si no se seleccionó nada
+        }
 
-        Mahaia mahaiaEditatua = new Mahaia(zenbakia, komentsalKop);
+        // Obtener el ID del mahai seleccionado
+        int zenbakia = mahaienTaula.getSelectionModel().getSelectedItem().getId();
 
+        // Crear un objeto Mahaia con los nuevos datos
+        Mahaia mahaiaEditatua = new Mahaia(zenbakia, komentsalKop, izena);
 
+        // Llamar a la base de datos para editar los datos
         boolean editatuta = MahaiaDbKudeaketa.editatuMahaia(mahaiaEditatua);
 
-
         if (editatuta) {
+            // Alerta de éxito utilizando la clase FuntzioLaguntzaileak
             FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Zuzen editatu da",
                     "Mahaiaren datuak editatu dira.",
                     Alert.AlertType.INFORMATION
             );
-
 
             String erab = erabiltzailea.getText();
 
@@ -89,6 +101,7 @@ public class MahaiaEditatuController extends BaseController {
             usingStage.setTitle("Mahaien Menua");
             usingStage.show();
         } else {
+            // Alerta de error utilizando la clase FuntzioLaguntzaileak
             FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Errorea editatzean",
                     "Errore bat egon da. Berriro saiatu mesedez.",
@@ -96,7 +109,6 @@ public class MahaiaEditatuController extends BaseController {
             );
         }
     }
-
 
 
 
@@ -109,7 +121,7 @@ public class MahaiaEditatuController extends BaseController {
             System.err.println("Mahairik ez dago");
         }
 
-        zenbakiaColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        zenbakiaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
         komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("gehienezkoKopurua"));
 
         mahaienTaula.setPrefWidth(300);
@@ -124,6 +136,7 @@ public class MahaiaEditatuController extends BaseController {
     }
 
 
+
     private void onTableRowClick(MouseEvent event) {
         Mahaia aukeratutakoa = mahaienTaula.getSelectionModel().getSelectedItem();
 
@@ -135,14 +148,11 @@ public class MahaiaEditatuController extends BaseController {
             );
 
             // Establecer los valores en los campos de texto
-            zenbakiaField.setText(String.valueOf(aukeratutakoa.getId())); // Establecer ID
+            izenaField.setText(aukeratutakoa.getIzena()); // Establecer ID
             komentsalField.setText(String.valueOf(aukeratutakoa.getGehienezkoKopurua())); // Establecer Número de comensales
         } else {
             // Caso cuando no se ha seleccionado ningún elemento
             System.out.println("No se seleccionó ningún elemento en la tabla.");
         }
     }
-
-
-
 }
