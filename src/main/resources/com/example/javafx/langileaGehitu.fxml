@@ -43,9 +43,9 @@
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Gerentea" />
-                            <String fx:value="Sukaldaria" />
-                            <String fx:value="Zerbitzaria" />
-                            <String fx:value="Administratzailea" />
+                            <String fx:value="Cocina" />
+                            <String fx:value="Camarero" />
+                            <String fx:value="Admin" />
                         </FXCollections>
                     </items>
                 </ComboBox>

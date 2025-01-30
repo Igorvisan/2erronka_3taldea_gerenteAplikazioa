@@ -15,7 +15,7 @@ import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 
 public class ErreserbaDbKudeaketa {
     public static ObservableList<Erreserba> getAllErreserbak() {
-        String query = "SELECT id, erreserba_izena, erreserba_data, pertsona_kopurua, mahaia_id FROM erreserba";
+        String query = "SELECT id, erreserba_izena, erreserba_data, pertsona_kopura, mahaia_id FROM erreserba";
         ObservableList<Erreserba> erreserbenLista = FXCollections.observableArrayList();
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -26,7 +26,7 @@ public class ErreserbaDbKudeaketa {
                 int id = rs.getInt("id");
                 String erreserbaIzena = rs.getString("erreserba_izena");
                 Date erreserbaData = rs.getDate("erreserba_data");  // Aquí obtenemos la fecha
-                int pertsonaKopurua = rs.getInt("pertsona_kopurua");
+                int pertsonaKopurua = rs.getInt("pertsona_kopura");
                 int mahaiaId = rs.getInt("mahaia_id");
 
                 // Crear un objeto Erreserba con los valores obtenidos
@@ -45,7 +45,7 @@ public class ErreserbaDbKudeaketa {
 
     public static boolean erreserbaGehitu(Erreserba erreserba) {
         // Consulta para insertar la nueva reserva
-        String insertQuery = "INSERT INTO erreserba (erreserba_izena, erreserba_data, pertsona_kopurua, mahaia_id) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO erreserba (erreserba_izena, erreserba_data, pertsona_kopura, mahaia_id) VALUES (?, ?, ?, ?)";
 
         // Consulta para obtener el 'gehienezko_kopurua' del 'mahaia'
         String selectQuery = "SELECT gehienezko_kopurua FROM mahaia WHERE id = ?";
@@ -259,7 +259,7 @@ public class ErreserbaDbKudeaketa {
             }
 
             // Realizar la actualización de la reserva en la base de datos
-            String query = "UPDATE erreserba SET erreserba_izena = ?, erreserba_data = ?, pertsona_kopurua = ?, mahaia_id = ? WHERE id = ?";
+            String query = "UPDATE erreserba SET erreserba_izena = ?, erreserba_data = ?, pertsona_kopura = ?, mahaia_id = ? WHERE id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, erreserbaEditatua.getErreserbaIzena());
