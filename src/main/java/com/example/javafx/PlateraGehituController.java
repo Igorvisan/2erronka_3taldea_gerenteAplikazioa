@@ -96,8 +96,16 @@ public class PlateraGehituController extends BaseController implements Initializ
         plateraBerria.setPrezioa(prezioa);
         plateraBerria.setMenu(menuanDago);
 
-        PlateraDbKudeaketa.plateraGehitu(plateraBerria);
+        int idPlatera = PlateraDbKudeaketa.plateraGehitu(plateraBerria);
 
+        if(idPlatera > 0){
+            for(ProductoSeleccionado ps : listaProduktuak){
+                int idProduktua = PlateraDbKudeaketa.getProduktuIzenaBtName(ps.getIzenaProduktua());
+                if(idProduktua > 0){
+                    PlateraDbKudeaketa.insterPlateraProduktuak(idPlatera, idProduktua, ps.getProduktuKantitatea());
+                }
+            }
+        }
         izenaField.clear();
         deskribapenaField.clear();
         prezioaField.clear();

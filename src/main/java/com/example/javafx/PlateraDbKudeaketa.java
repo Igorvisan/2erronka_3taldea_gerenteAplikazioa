@@ -70,7 +70,7 @@ public class PlateraDbKudeaketa {
         }
     }
 
-    public static void plateraGehitu(Platera platera) {
+    public static int plateraGehitu(Platera platera) {
         String query = "INSERT INTO platera (izena, deskribapena, kategoria, kantitatea, prezioa, menu) VALUES (?, ?, ?, ?, ?, ?)";
         try(Connection conn = DbKonexioa.getKonexioa();
         PreparedStatement statement = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)){
@@ -88,11 +88,11 @@ public class PlateraDbKudeaketa {
                     if (generatedKeys.next()) {
                         int generatedId = generatedKeys.getInt(1);
                         platera.setId(generatedId);
-
                         //Mostrar Mensaje de confirmacion
                         String izena = "Success";
                         String mezuLuzea = "Platera zuzen gehitu da. Honako hau da bere ID-a: " + generatedId;
                         mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.CONFIRMATION);
+                        return generatedKeys.getInt(1);
                     }
                 }
             }else{
@@ -104,6 +104,41 @@ public class PlateraDbKudeaketa {
             String  izena = "Errorea";
             String mezuLuzea = "Ezin izan dira datuak ezarri";
             mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+        }
+        return -1; //Error producto no encontrado
+    }
+
+    public static int getProduktuIzenaBtName(String izena){
+        String query = "SELECT id FROM produktua WHERE izena = ?";
+        try(Connection conn = DbKonexioa.getKonexioa();
+        PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setString(1, izena);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()) {
+                return rs.getInt("id");
+            }
+        }catch(SQLException e) {
+            String mezua = "Error";
+            String mezuLuzea = "Ez da lortu Produktu idearen errorea";
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+        }
+        return -1; //Errorea ez da lortu inungo id-rik
+    }
+
+    public static void insterPlateraProduktuak(int idPlatera, int idProduktu, int kantitatea){
+        String query = "INSERT INTO platera_produktua (platera_id, produktua_id, kantitatea) VALUES (?, ?, ?)";
+        try(Connection conn = DbKonexioa.getKonexioa();
+        PreparedStatement stmt = conn.prepareStatement(query)){
+            stmt.setInt(1, idPlatera);
+            stmt.setInt(2, idProduktu);
+            stmt.setInt(3, kantitatea);
+            stmt.executeUpdate();
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+            String mezua = "Errorea";
+            String mezuLuzea = "Ezin izan dira datuak ezarri";
+            mezuaPantailaratu(mezua, mezuLuzea, Alert.AlertType.ERROR);
         }
     }
 }
