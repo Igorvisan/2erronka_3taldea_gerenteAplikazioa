@@ -53,6 +53,20 @@ public class HasierakoMenuaController extends BaseController {
         usingStage.show();
     }
 
+    public void onPlaterakKudeatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+
+        FXMLLoader plateraMenua = new FXMLLoader(App.class.getResource("plateraMenua.fxml"));
+        Scene scene = new Scene(plateraMenua.load());
+        PlateraMenuaController plmc = plateraMenua.getController();
+        Stage usingStage = this.getUsingStage();
+        plmc.setErabiltzailea(erab);
+        plmc.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Platera Menua");
+        usingStage.show();
+    }
+
     public void onErreserbakKudeatuBotoiaClick(ActionEvent actionEvent) throws IOException {
         String erab = erabiltzailea.getText();
 

@@ -14,7 +14,7 @@ import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 public class MahaiaDbKudeaketa {
 
     public static ObservableList<Mahaia> getAllMahaiak() {
-        String query = "SELECT id, gehienezko_kopurua, izena FROM mahaia";
+        String query = "SELECT id, kopurua, mahaiZenbakia, habilitado FROM mahaia";
         ObservableList<Mahaia> mahaienLista = FXCollections.observableArrayList();
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -23,10 +23,11 @@ public class MahaiaDbKudeaketa {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
-                int gehienezkoKopurua = rs.getInt("gehienezko_kopurua");
-                String izena = rs.getString("izena");
+                int komentsalKopurua = rs.getInt("kopurua");
+                int mahaiZenbakia = rs.getInt("mahaiZenbakia");
+                boolean habilitado = rs.getBoolean("habilitado");
 
-                Mahaia mahaia = new Mahaia(id, gehienezkoKopurua, izena);
+                Mahaia mahaia = new Mahaia(id, mahaiZenbakia, komentsalKopurua, habilitado);
                 mahaienLista.add(mahaia);
             }
 
@@ -39,15 +40,15 @@ public class MahaiaDbKudeaketa {
 
 
     public static void mahaiaGehitu(Mahaia mahaia) {
-        String query = "INSERT INTO mahaia (gehienezko_kopurua, izena ) VALUES (?, ?)";
+        String query = "INSERT INTO mahaia (mahaiZenbakia, kopurua, habilitado) VALUES (?, ?, ?)";
 
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             // Establecer los valores para los campos en la base de datos
-            stmt.setInt(1, mahaia.getGehienezkoKopurua());
-            stmt.setString(2, mahaia.getIzena());
-
+            stmt.setInt(1, mahaia.getMahaiZenbakia());
+            stmt.setInt(2, mahaia.getKomentsalKopurua());
+            stmt.setBoolean(3, mahaia.isHabilitado());
 
             // Ejecutar la actualización de la base de datos
             int filasAfectadas = stmt.executeUpdate();
@@ -83,15 +84,16 @@ public class MahaiaDbKudeaketa {
     }
 
     public static boolean editatuMahaia(Mahaia mahaia) {
-        String query = "UPDATE mahaia SET gehienezko_kopurua = ?, izena = ? WHERE id = ?";
+        String query = "UPDATE mahaia SET kopurua = ?, mahaiZenbakia = ?, habilitado = ? WHERE id = ?";
 
         try (Connection conn = DbKonexioa.getKonexioa(); // Obtención de la conexión a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Asignar los parámetros al PreparedStatement
-            stmt.setInt(1, mahaia.getGehienezkoKopurua());
-            stmt.setString(2, mahaia.getIzena());
-            stmt.setInt(3, mahaia.getId());
+            stmt.setInt(1, mahaia.getKomentsalKopurua());
+            stmt.setInt(2, mahaia.getMahaiZenbakia());
+            stmt.setBoolean(3, mahaia.isHabilitado());
+            stmt.setInt(4, mahaia.getId());
 
             // Ejecutar la actualización y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();

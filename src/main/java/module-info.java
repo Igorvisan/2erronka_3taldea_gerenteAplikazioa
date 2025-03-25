@@ -1,10 +1,12 @@
 module com.example.javafx {
-    requires javafx.controls;
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
-    requires java.desktop;
+    requires javahelp;
+    requires javafx.swing;
+    requires javafx.web;
+    requires mysql.connector.j;
 
     opens com.example.javafx to javafx.fxml;
     exports com.example.javafx;

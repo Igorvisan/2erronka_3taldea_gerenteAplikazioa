@@ -19,6 +19,8 @@ public class MahaiaGehituController extends BaseController {
     private TextField izenaField;
     @FXML
     private TextField komentsalField;
+    @FXML
+    private ComboBox<String> habilitado;
 
     @FXML
     public void setErabiltzailea(String izena) {
@@ -41,17 +43,20 @@ public class MahaiaGehituController extends BaseController {
     public void onGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
         String komentsal = komentsalField.getText();
         String izena = izenaField.getText();
+        String habilitadoText = habilitado.getValue();
 
         // Verificar si los campos están vacíos
-        if (izena.isEmpty() || komentsal.isEmpty()) {
+        if (izena.isEmpty() || komentsal.isEmpty() || habilitadoText == null) {
             String izenaError = "Errorea";
             String mezuLuzeaError = "Datu guztiak sartu behar dituzu.";
             mezuaPantailaratu(izenaError, mezuLuzeaError, Alert.AlertType.ERROR);
             return;
         }
 
+        Boolean habilitadoBool = "Bai".equals(habilitadoText);
+
         // Crear el nuevo objeto Mahaia
-        Mahaia mahaiBerria = new Mahaia(0, Integer.parseInt(komentsal), izena);
+        Mahaia mahaiBerria = new Mahaia(0, Integer.parseInt(izena), Integer.parseInt(komentsal), habilitadoBool);
 
         // Llamar al método para agregar el nuevo Mahaia a la base de datos
         MahaiaDbKudeaketa.mahaiaGehitu(mahaiBerria);
@@ -71,6 +76,12 @@ public class MahaiaGehituController extends BaseController {
         usingStage.setScene(scene);
         usingStage.setTitle("Mahaien Menua");
         usingStage.show();
+    }
+
+    public void initialize(){
+        habilitado.getItems().addAll("Bai", "Ez");
+
+        habilitado.setValue("Ez");
     }
 
 

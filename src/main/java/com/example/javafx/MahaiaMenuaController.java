@@ -23,7 +23,8 @@ public class MahaiaMenuaController extends BaseController {
     private TableColumn<Mahaia, String> izenaColumn;
     @FXML
     private TableColumn<Mahaia, Integer> komentsalColumn;
-
+    @FXML
+    private TableColumn<Mahaia, Boolean>  habilitado;
 
 
     @FXML
@@ -53,14 +54,17 @@ public class MahaiaMenuaController extends BaseController {
             System.out.println("No hay mesas disponibles para mostrar.");
         }
 
-        izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
-        komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("gehienezkoKopurua"));
+        izenaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaiZenbakia"));
+        komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("komentsalKopurua"));
+        habilitado.setCellValueFactory(new PropertyValueFactory<>("habilitado"));
 
         izenaColumn.setPrefWidth(100);
         komentsalColumn.setPrefWidth(100);
+        habilitado.setPrefWidth(100);
 
         mahaiaTaula.setPrefWidth(300);
-        mahaiaTaula.setPrefHeight(150);
+        mahaiaTaula.setPrefHeight(200);
+
     }
 
 

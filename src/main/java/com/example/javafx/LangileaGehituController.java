@@ -19,7 +19,13 @@ public class LangileaGehituController extends BaseController {
     private TextField izenaField;
 
     @FXML
+    private TextField dniField;
+
+    @FXML
     private TextField emailField;
+
+    @FXML
+    private TextField telefonoField;
 
     @FXML
     private ComboBox lanPostuaComboBox;
@@ -50,7 +56,9 @@ public class LangileaGehituController extends BaseController {
 
     public void onGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
         String izena = izenaField.getText();
+        String dni = dniField.getText();
         String email = emailField.getText();
+        String telefonoa = telefonoField.getText();
         String pasahitza = pasahitzaField.getText();
         String lanPostua = lanPostuaComboBox.getValue().toString();
 
@@ -74,7 +82,9 @@ public class LangileaGehituController extends BaseController {
         // Crear el nuevo trabajador
         Langilea langileBerria = new Langilea();
         langileBerria.setIzena(izena);
+        langileBerria.setDni(dni);
         langileBerria.setEmail(email);
+        langileBerria.setTelefonoa(telefonoa);
         langileBerria.setPasahitza(pasahitza);
         langileBerria.setLanPostua(lanPostua);
         langileBerria.setTxatBaimena(txatBaimena); // Establecer el valor de txat_baimena

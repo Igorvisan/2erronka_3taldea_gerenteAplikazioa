@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -30,6 +31,14 @@ public class ErreserbaMenuaController extends BaseController {
     private TableColumn<Erreserba, Integer> pertsonaColumn;
     @FXML
     private TableColumn<Erreserba, Integer> mahaiaColumn;
+    @FXML
+    private TableColumn<Erreserba, Boolean> katzelatutaColumn;
+    @FXML
+    private TableColumn<Erreserba, Date> updateDataColumn;
+    @FXML
+    private TableColumn<Erreserba, String> updatedByColumn;
+
+
 
     @FXML
     public void setErabiltzailea(String izena) {
@@ -47,12 +56,19 @@ public class ErreserbaMenuaController extends BaseController {
         izenaColumn.setCellValueFactory(new PropertyValueFactory<>("erreserbaIzena"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("erreserbaDate"));
         pertsonaColumn.setCellValueFactory(new PropertyValueFactory<>("pertsonaKopurua"));
-        mahaiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahiaId"));
+        mahaiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaiZenbakia"));
+        katzelatutaColumn.setCellValueFactory(new PropertyValueFactory<>("kantzelatuta"));
+        updateDataColumn.setCellValueFactory(new PropertyValueFactory<>("updateData"));
+        updatedByColumn.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
 
         izenaColumn.setPrefWidth(100);
         dataColumn.setPrefWidth(100);
         pertsonaColumn.setPrefWidth(100);
         mahaiaColumn.setPrefWidth(100);
+        katzelatutaColumn.setPrefWidth(140);
+        updateDataColumn.setPrefWidth(110);
+        updatedByColumn.setPrefWidth(100);
+
 
         erreserbaTaula.setPrefWidth(300);
         erreserbaTaula.setPrefHeight(150);

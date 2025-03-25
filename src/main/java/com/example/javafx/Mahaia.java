@@ -2,15 +2,19 @@ package com.example.javafx;
 
 public class Mahaia {
     private int id;
-    private int gehienezkoKopurua;
-    private String izena;
+    private int mahaiZenbakia;
+    private int komentsalKopurua;
+    private boolean habilitado;
 
     // Constructor con todos los parámetros
-    public Mahaia(int id, int gehienezkoKopurua, String izena) {
+    public Mahaia(int id, int mahaiZenbakia, int komentsalKopurua, boolean habilitado) {
         this.id = id;
-        this.gehienezkoKopurua = gehienezkoKopurua;
-        this.izena = izena;
+        this.mahaiZenbakia = mahaiZenbakia;
+        this.komentsalKopurua = komentsalKopurua;
+        this.habilitado = habilitado;
     }
+
+    public Mahaia() {}
 
     // Getters y setters
     public int getId() {
@@ -21,18 +25,24 @@ public class Mahaia {
         this.id = id;
     }
 
-    public int getGehienezkoKopurua() {
-        return gehienezkoKopurua;
+    public int getMahaiZenbakia() {
+        return mahaiZenbakia;
     }
 
-    public void setGehienezkoKopurua(int gehienezkoKopurua) {
-        this.gehienezkoKopurua = gehienezkoKopurua;
+    public void setMahaiZenbakia(int mahaiZenbakia) {
+        this.mahaiZenbakia = mahaiZenbakia;
     }
 
-    public String getIzena() {
-        return izena;
+    public int getKomentsalKopurua() {
+        return komentsalKopurua;
     }
-    public void setIzena(String izena) {
-        this.izena = izena;
+    public void setKomentsalKopurua(int komentsalKopurua) {
+        this.komentsalKopurua = komentsalKopurua;
+    }
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
     }
 }

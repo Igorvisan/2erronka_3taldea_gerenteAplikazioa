@@ -17,7 +17,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader saioaHasi = new FXMLLoader(App.class.getResource("saioaHasi.fxml"));
-        Scene scene = new Scene(saioaHasi.load(), 320, 240);
+        Scene scene = new Scene(saioaHasi.load(         ), 320, 240);
 
         stage.setTitle("Saioa Hasi");
         stage.setMaximized(true);
@@ -34,7 +34,7 @@ public class App extends Application {
     public void stop() throws Exception {
         super.stop();
 
-        // Aquí cierras la conexión de chat si está activa
+
         if (txatController != null) {
             txatController.cerrarConexion();
         }

@@ -32,6 +32,7 @@ public class ErreserbaEditatuController extends BaseController {
 
     @FXML
     private TableColumn<Erreserba, String> pertsonaColumn;
+
     @FXML
     private TableColumn<Erreserba, String> mahaiaColumn;
 
@@ -39,7 +40,7 @@ public class ErreserbaEditatuController extends BaseController {
     private TextField izenaField;
 
     @FXML
-    private TextField dataField;
+    private DatePicker dataField;
 
     @FXML
     private TextField pertsonaField;
@@ -54,9 +55,6 @@ public class ErreserbaEditatuController extends BaseController {
         erabiltzailea.setText(izena);
     }
 
-
-
-
     public void onAtzeaBotoiaClick(MouseEvent mouseEvent) throws IOException {
         String erab = erabiltzailea.getText();
         FXMLLoader erreserbaMenua = new FXMLLoader(App.class.getResource("erreserbaMenua.fxml"));
@@ -69,15 +67,14 @@ public class ErreserbaEditatuController extends BaseController {
         usingStage.setTitle("Erreserba Menua");
         usingStage.show();
     }
+
     public void onEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
         String izena = izenaField.getText();
-        String dataStr = dataField.getText();
+        String dataStr = String.valueOf(dataField.getValue());
         String pertsonaStr = pertsonaField.getText();
         String mahaiaStr = mahaiaField.getText();
 
-        // Verificar que el campo de personas y mesa se puedan convertir a enteros
-        int pertsona = 0;
-        int mahaia = 0;
+        int pertsona, mahaia;
         try {
             pertsona = Integer.parseInt(pertsonaStr);
             mahaia = Integer.parseInt(mahaiaStr);
@@ -87,11 +84,10 @@ public class ErreserbaEditatuController extends BaseController {
                     "Pertsona kopurua eta mahaia zenbakiak izan behar dira.",
                     Alert.AlertType.ERROR
             );
-            return;  // Salir si hay un error al convertir los números
+            return;
         }
 
-        // Verificar que la fecha se pueda parsear correctamente
-        LocalDate localDate = null;
+        LocalDate localDate;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             localDate = LocalDate.parse(dataStr, formatter);
@@ -101,42 +97,28 @@ public class ErreserbaEditatuController extends BaseController {
                     "Data formatu egokia ez du.",
                     Alert.AlertType.ERROR
             );
-            return;  // Salir si la fecha no es válida
+            return;
         }
 
         java.sql.Date data = java.sql.Date.valueOf(localDate);
-
-        // Obtener el ID de la reserva seleccionada
         int id = erreserbenTaula.getSelectionModel().getSelectedItem().getId();
 
-        // Crear objeto Erreserba con los datos editados
-        Erreserba erreserbaEditatua = new Erreserba(id, izena, data, pertsona, mahaia);
+        boolean kantzelatuta = false;
+        Date updateData = new Date();
+        String updatedBy = erabiltzailea.getText();
 
-        // Llamar al método que actualiza la reserva en la base de datos
+        Erreserba erreserbaEditatua = new Erreserba(id, izena, data, pertsona, mahaia, kantzelatuta, updateData, updatedBy);
+
         boolean editatuta = ErreserbaDbKudeaketa.editatuErreserba(erreserbaEditatua);
 
-        // Verificar si la edición fue exitosa
         if (editatuta) {
-            // Alerta de éxito
             FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Zuzen editatu da",
                     "Erreserbaren datuak editatu dira.",
                     Alert.AlertType.INFORMATION
             );
-            String erab = erabiltzailea.getText();
-
-            FXMLLoader erreserbaMenua = new FXMLLoader(App.class.getResource("erreserbaMenua.fxml"));
-            Scene scene = new Scene(erreserbaMenua.load());
-            ErreserbaMenuaController emc = erreserbaMenua.getController();
-            Stage usingStage = this.getUsingStage();
-            emc.setErabiltzailea(erab);
-            emc.setUsingStage(usingStage);
-            usingStage.setScene(scene);
-            usingStage.setTitle("Erreserba Menua");
-            usingStage.show();
-
+            onAtzeaBotoiaClick(null);
         } else {
-            // Alerta de error si la edición no fue exitosa
             FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Errorea editatzean",
                     "Errore bat egon da. Berriro saiatu mesedez.",
@@ -149,22 +131,12 @@ public class ErreserbaEditatuController extends BaseController {
     public void initialize() {
         ObservableList<Erreserba> erreserbak = ErreserbaDbKudeaketa.getAllErreserbak();
 
-
         erreserbenTaula.setItems(erreserbak);
-
 
         izenaColumn.setCellValueFactory(new PropertyValueFactory<>("erreserbaIzena"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("erreserbaDate"));
         pertsonaColumn.setCellValueFactory(new PropertyValueFactory<>("pertsonaKopurua"));
-        mahaiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahiaId"));
-
-        izenaColumn.setPrefWidth(100);
-        dataColumn.setPrefWidth(100);
-        pertsonaColumn.setPrefWidth(100);
-        mahaiaColumn.setPrefWidth(100);
-
-        erreserbenTaula.setPrefWidth(400);
-        erreserbenTaula.setPrefHeight(150);
+        mahaiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaiZenbakia"));
 
         erreserbenTaula.setOnMouseClicked(this::onTableRowClick);
     }
@@ -173,18 +145,14 @@ public class ErreserbaEditatuController extends BaseController {
         aukeratutakoa = erreserbenTaula.getSelectionModel().getSelectedItem();
 
         if (aukeratutakoa != null) {
-            // Convertir los valores a String antes de asignarlos a los TextFields
             izenaField.setText(aukeratutakoa.getErreserbaIzena());
 
-            // Convertir la fecha de tipo Date a String (si es necesario formatear la fecha, puedes usar un SimpleDateFormat)
-            dataField.setText(aukeratutakoa.getErreserbaDate().toString());  // Si es necesario un formato específico, usa un SimpleDateFormat
+            // Convertir java.sql.Date a LocalDate y establecerlo en el DatePicker
+            LocalDate fechaLocal = aukeratutakoa.getErreserbaDate().toLocalDate();
+            dataField.setValue(fechaLocal);
 
-            // Convertir el int a String
             pertsonaField.setText(String.valueOf(aukeratutakoa.getPertsonaKopurua()));
-            mahaiaField.setText(String.valueOf(aukeratutakoa.getMahiaId()));
-        } else {
-            System.out.println("No se seleccionó ningún elemento en la tabla.");
+            mahaiaField.setText(String.valueOf(aukeratutakoa.getMahaiZenbakia()));
         }
     }
-
 }

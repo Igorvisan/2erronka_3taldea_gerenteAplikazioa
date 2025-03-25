@@ -13,7 +13,7 @@ import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 public class LangileaDbKudeaketa {
 
     public static int erabiltzaileaKomprobatu(String erab, String pasa) {
-        String query = "SELECT lan_postua FROM langile WHERE izena = ? AND pasahitza = ?";
+        String query = "SELECT postua FROM langilea WHERE izena = ? AND pasahitza = ?";
 
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -24,10 +24,12 @@ public class LangileaDbKudeaketa {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String lanPostua = rs.getString("lan_postua");
+                String lanPostua = rs.getString("postua");
                 if ("Gerentea".equalsIgnoreCase(lanPostua)) {
+                    System.out.println("Es gerente");
                     return 1; // gerentea da
                 } else {
+                    System.out.println("No es gerente");
                     return 0; // ez da gerentea
                 }
             }
@@ -39,7 +41,7 @@ public class LangileaDbKudeaketa {
     }
 
     public static ObservableList<Langilea> getAllLangileak() {
-        String query = "SELECT id, izena, email, lan_postua, pasahitza, txat_baimena FROM langile";
+        String query = "SELECT id, dni, izena, abizena, korreoa, postua, pasahitza, telefonoa, txatBaimena, updateData, updateBy FROM langilea";
         ObservableList<Langilea> langileenLista = FXCollections.observableArrayList();
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -48,13 +50,17 @@ public class LangileaDbKudeaketa {
 
             while (rs.next()) {
                 Langilea langilea = new Langilea(
-                        rs.getInt("id"),
-                        rs.getString("izena"),
-                        rs.getString("email"),
-                        rs.getString("lan_postua"),
-                        rs.getString("pasahitza"),
-                        rs.getBoolean("txat_baimena")
-
+                    rs.getInt("id"),
+                    rs.getString("dni"),
+                    rs.getString("izena"),
+                    rs.getString("abizena"),
+                    rs.getString("korreoa"),
+                    rs.getString("postua"),
+                    rs.getString("pasahitza"),
+                    rs.getString("telefonoa"),
+                    rs.getBoolean("txatBaimena"),
+                    rs.getDate("updateData"),
+                    rs.getString("updateBy")
                 );
                 langileenLista.add(langilea);
             }
@@ -67,17 +73,19 @@ public class LangileaDbKudeaketa {
     }
 
     public static void langileaGehitu(Langilea langilea) {
-        String query = "INSERT INTO langile (izena, email, pasahitza, lan_postua, txat_baimena) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO langilea (izena, dni, korreoa, telefonoa, pasahitza, postua, txatBaimena) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             // Establecer los valores para los campos en la base de datos
             stmt.setString(1, langilea.getIzena());
-            stmt.setString(2, langilea.getEmail());
-            stmt.setString(3, langilea.getPasahitza());
-            stmt.setString(4, langilea.getLanPostua());
-            stmt.setBoolean(5, langilea.isTxatBaimena()); // Cambiado índice a 5
+            stmt.setString(2, langilea.getDni());
+            stmt.setString(3, langilea.getEmail());
+            stmt.setString(4, langilea.getTelefonoa());
+            stmt.setString(5, langilea.getPasahitza());
+            stmt.setString(6, langilea.getLanPostua());
+            stmt.setBoolean(7, langilea.isTxatBaimena()); // Cambiado índice a 5
 
             // Ejecutar la actualización de la base de datos
             int filasAfectadas = stmt.executeUpdate();
@@ -113,7 +121,7 @@ public class LangileaDbKudeaketa {
     }
 
     public static void langileaEzabatu(int langileId) {
-        String query = "DELETE FROM langile WHERE id = ?"; // Query para eliminar un trabajador por ID
+        String query = "DELETE FROM langilea WHERE id = ?"; // Query para eliminar un trabajador por ID
 
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -144,18 +152,23 @@ public class LangileaDbKudeaketa {
     }
     public static boolean editatuLangilea(Langilea langilea) {
         // Consulta SQL para actualizar los datos del trabajador
-        String query = "UPDATE langile SET izena = ?, email = ?, lan_postua = ?, pasahitza = ?, txat_baimena = ? WHERE id = ?";
+        String query = "UPDATE langilea SET izena = ?, abizena = ?, dni = ?, korreoa = ?, postua = ?, pasahitza = ?, telefonoa = ?, txatBaimena = ?, updateData = ?, updateBy = ? WHERE id = ?";
 
         try (Connection conn = DbKonexioa.getKonexioa(); // Obtención de la conexión a la base de datos
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
             // Asignar los parámetros al PreparedStatement
             stmt.setString(1, langilea.getIzena());
-            stmt.setString(2, langilea.getEmail());
-            stmt.setString(3, langilea.getLanPostua());
-            stmt.setString(4, langilea.getPasahitza());
-            stmt.setBoolean(5, langilea.isTxatBaimena());
-            stmt.setInt(6, langilea.getId());
+            stmt.setString(2, langilea.getAbizena());
+            stmt.setString(3, langilea.getDni());
+            stmt.setString(4, langilea.getEmail());
+            stmt.setString(5, langilea.getLanPostua());
+            stmt.setString(6, langilea.getPasahitza());
+            stmt.setString(7, langilea.getTelefonoa());
+            stmt.setBoolean(8, langilea.isTxatBaimena());
+            stmt.setDate(9, langilea.getUpdateData());
+            stmt.setString(10, langilea.getUpdateBy());
+            stmt.setInt(11, langilea.getId());
 
             // Ejecutar la actualización y obtener el número de filas afectadas
             int rowsAffected = stmt.executeUpdate();
@@ -166,13 +179,15 @@ public class LangileaDbKudeaketa {
         } catch (SQLException e) {
             // Captura y muestra los errores de SQL con más detalle
             System.err.println("Error al actualizar los datos del empleado con ID " + langilea.getId() + ": " + e.getMessage());
+            e.printStackTrace(); // Imprime la traza de la excepción para diagnóstico
             return false;
         }
     }
     public static Langilea langileaLortuIzenaBidez(String izena) {
-        String query = "SELECT id, izena, email, lan_postua, pasahitza, txat_baimena FROM langile WHERE izena = ?";
+        String query = "SELECT id, dni, izena, abizena, korreoa, postua, pasahitza, telefonoa, txatBaimena, updateData, updateBy FROM langilea WHERE izena = ?";
         Langilea langilea = null;
 
+        Langilea langileIzenaBidez = null;
         try (Connection conn = DbKonexioa.getKonexioa();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
@@ -181,23 +196,25 @@ public class LangileaDbKudeaketa {
 
             if (rs.next()) {
                 // Si se encuentra un resultado, crear el objeto Langilea con los datos obtenidos
-                langilea = new Langilea(
+                langileIzenaBidez = new Langilea(
                         rs.getInt("id"),
+                        rs.getString("dni"),
                         rs.getString("izena"),
-                        rs.getString("email"),
-                        rs.getString("lan_postua"),
+                        rs.getString("abizena"),
+                        rs.getString("korreoa"),
+                        rs.getString("postua"),
                         rs.getString("pasahitza"),
-                        rs.getBoolean("txat_baimena")
+                        rs.getString("telefonoa"),
+                        rs.getBoolean("txatBaimena"),
+                        rs.getDate("updateData"),
+                        rs.getString("updateBy")
                 );
             }
 
         } catch (SQLException e) {
             System.err.println("Errorea langilea eskuratzerakoan: " + e.getMessage());
         }
-
-        return langilea;  // Devuelve el objeto Langilea si lo encontró, o null si no lo encontró
+        return langileIzenaBidez;  // Devuelve el objeto Langilea si lo encontró, o null si no lo encontró
     }
-
-
 
 }

@@ -109,13 +109,11 @@ public class MahaiaEzabatuController extends BaseController {
     @FXML
     public void initialize() {
         ObservableList<Mahaia> mahaiak = MahaiaDbKudeaketa.getAllMahaiak();
-
-        // Asignar la lista de trabajadores a la tabla
         mahaienTaula.setItems(mahaiak);
 
-        // Configuración de las columnas
-        izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
-        komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("gehienezkoKopurua"));
+        // Usar el mismo nombre que en el modelo
+        izenaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaiZenbakia"));
+        komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("komentsalKopurua"));
 
 
         // Establecer el tamaño de las columnas

@@ -1,5 +1,6 @@
 package com.example.javafx;
 
+import com.mysql.cj.xdevapi.Table;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,10 +20,12 @@ public class MahaiaEditatuController extends BaseController {
     private TableView<Mahaia> mahaienTaula;
 
     @FXML
-    private TableColumn<Mahaia, Integer> zenbakiaColumn;
+    private TableColumn<Mahaia, Integer> izenaColumn;
 
     @FXML
     private TableColumn<Mahaia, Integer> komentsalColumn;
+    @FXML
+    private TableColumn<Mahaia, Boolean> habilitado;
 
     @FXML
     private TableColumn<Mahaia, Boolean> libreColumn;
@@ -33,7 +36,8 @@ public class MahaiaEditatuController extends BaseController {
 
     @FXML
     private TextField komentsalField;
-
+    @FXML
+    private ComboBox<String> habilitadoSelection;
 
     private Mahaia aukeratutakoa;
 
@@ -59,7 +63,9 @@ public class MahaiaEditatuController extends BaseController {
     public void onEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
         // Obtener los valores de los campos de edición
         Integer komentsalKop = Integer.parseInt(komentsalField.getText());
-        String izena = izenaField.getText();
+        Integer mahaiZenbakia = Integer.parseInt(izenaField.getText());
+
+        Boolean habilitadoValue = "Bai".equals(habilitadoSelection.getValue());
 
         // Verificar que se haya seleccionado un elemento de la tabla antes de proceder
         if (mahaienTaula.getSelectionModel().getSelectedItem() == null) {
@@ -76,7 +82,7 @@ public class MahaiaEditatuController extends BaseController {
         int zenbakia = mahaienTaula.getSelectionModel().getSelectedItem().getId();
 
         // Crear un objeto Mahaia con los nuevos datos
-        Mahaia mahaiaEditatua = new Mahaia(zenbakia, komentsalKop, izena);
+        Mahaia mahaiaEditatua = new Mahaia(zenbakia, mahaiZenbakia, komentsalKop, habilitadoValue);
 
         // Llamar a la base de datos para editar los datos
         boolean editatuta = MahaiaDbKudeaketa.editatuMahaia(mahaiaEditatua);
@@ -110,10 +116,10 @@ public class MahaiaEditatuController extends BaseController {
         }
     }
 
-
-
     public void initialize() {
         ObservableList<Mahaia> mahaiak = MahaiaDbKudeaketa.getAllMahaiak();
+
+        habilitadoSelection.getItems().addAll("Bai", "ez");
 
         if (mahaiak != null && !mahaiak.isEmpty()) {
             mahaienTaula.setItems(mahaiak);
@@ -121,8 +127,22 @@ public class MahaiaEditatuController extends BaseController {
             System.err.println("Mahairik ez dago");
         }
 
-        zenbakiaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
-        komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("gehienezkoKopurua"));
+        izenaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaiZenbakia"));
+        komentsalColumn.setCellValueFactory(new PropertyValueFactory<>("komentsalKopurua"));
+        habilitado.setCellValueFactory(new PropertyValueFactory<>("habilitado"));
+
+        habilitado.setCellFactory(column -> new TableCell<Mahaia, Boolean>(){
+            @Override
+            public void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if(empty || item == null) {
+                    setText(null);
+                }else{
+                    setText(item ? "Bai" : "ez");
+                }
+            }
+        });
 
         mahaienTaula.setPrefWidth(300);
         mahaienTaula.setPrefHeight(150);
@@ -131,7 +151,7 @@ public class MahaiaEditatuController extends BaseController {
 
         // Imprimir datos para ver si se cargan correctamente
         mahaienTaula.getItems().forEach(mahaia -> {
-            System.out.println("Mahaia: " + mahaia.getId() + ", " + mahaia.getGehienezkoKopurua());
+            System.out.println("Mahaia: " + mahaia.getId() + ", " + mahaia.getKomentsalKopurua());
         });
     }
 
@@ -144,14 +164,17 @@ public class MahaiaEditatuController extends BaseController {
             // Imprimir los datos seleccionados
             System.out.println("Datos seleccionados: " +
                     "ID=" + aukeratutakoa.getId() +
-                    ", Gehienezko Kopurua=" + aukeratutakoa.getGehienezkoKopurua()
+                    ", Gehienezko Kopurua=" + aukeratutakoa.getKomentsalKopurua() +
+                    ", Habilitado=" + aukeratutakoa.isHabilitado()
             );
 
             // Establecer los valores en los campos de texto
-            izenaField.setText(aukeratutakoa.getIzena()); // Establecer ID
-            komentsalField.setText(String.valueOf(aukeratutakoa.getGehienezkoKopurua())); // Establecer Número de comensales
+            izenaField.setText(String.valueOf(aukeratutakoa.getMahaiZenbakia()));
+            komentsalField.setText(String.valueOf(aukeratutakoa.getKomentsalKopurua()));
+
+            // Establecer el valor del ComboBox según el valor booleano
+            habilitadoSelection.setValue(aukeratutakoa.isHabilitado() ? "Bai" : "Ez");
         } else {
-            // Caso cuando no se ha seleccionado ningún elemento
             System.out.println("No se seleccionó ningún elemento en la tabla.");
         }
     }

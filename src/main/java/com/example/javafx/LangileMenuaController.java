@@ -29,6 +29,10 @@ public class LangileMenuaController extends BaseController {
     private TableColumn<Langilea, String> emailColumn;
     @FXML
     private TableColumn<Langilea, String> lanPostuaColumn;
+    @FXML
+    private TableColumn<Langilea, String> telefonoa;
+    @FXML
+    private TableColumn<Langilea, String> dni;
 
     @FXML
     public void setErabiltzailea(String izena) {
@@ -42,14 +46,18 @@ public class LangileMenuaController extends BaseController {
 
         tableView.setItems(langileak);
 
-
         izenaColumn.setCellValueFactory(new PropertyValueFactory<>("izena"));
+        dni.setCellValueFactory(new PropertyValueFactory<>("dni"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         lanPostuaColumn.setCellValueFactory(new PropertyValueFactory<>("lanPostua"));
+        telefonoa.setCellValueFactory(new PropertyValueFactory<>("telefonoa"));
 
         izenaColumn.setPrefWidth(100);
+        dni.setPrefWidth(100);
         emailColumn.setPrefWidth(100);
         lanPostuaColumn.setPrefWidth(100);
+        telefonoa.setPrefWidth(100);
+
 
         tableView.setPrefWidth(300);
         tableView.setPrefHeight(150);
