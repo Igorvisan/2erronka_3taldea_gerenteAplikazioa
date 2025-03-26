@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="520.0" prefWidth="980.0" style="-fx-background-color: #345A7B;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.SaioaHasiController">
+<AnchorPane prefHeight="520.0" prefWidth="980.0" style="-fx-background-color: #f6f0e4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.SaioaHasiController">
 
    <children>
       <!-- Logo arriba a la izquierda -->
       <ImageView fitHeight="187.0" fitWidth="200.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../images/restauranLogo (1).png" />
+            <Image url="@../../../images/the_bulls_sin_fondo.png" />
          </image>
       </ImageView>
 
