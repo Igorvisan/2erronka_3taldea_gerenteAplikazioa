@@ -79,4 +79,31 @@ public class PlateraMenuaController extends BaseController {
         usingStage.show();
     }
 
+    public void onPlateraEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+        FXMLLoader plateraEditatu = new FXMLLoader(App.class.getResource("plateraEditatu.fxml"));
+        Scene scene = new Scene(plateraEditatu.load());
+        PlateraEditatuController pec = plateraEditatu.getController();
+        Stage usingStage = this.getUsingStage();
+        pec.setErabiltzailea(erab);
+        pec.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Platera editatu");
+        usingStage.show();
+    }
+
+    public void onPlateraEzabatuBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erab = erabiltzailea.getText();
+        FXMLLoader plateraEzabatu = new FXMLLoader(App.class.getResource("plateraEzabatu.fxml"));
+        Scene scene = new Scene(plateraEzabatu.load());
+        PlateraEzabatuController pec = plateraEzabatu.getController();
+        Stage usingStage = this.getUsingStage();
+        pec.setErabiltzailea(erab);
+        pec.setUsingStage(usingStage);
+        usingStage.setScene(scene);
+        usingStage.setTitle("Platera ezabatu");
+        usingStage.show();
+
+    }
+
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.collections.FXCollections?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.PlateraEditatuController" style="-fx-background-color: #345A7B;">
+    <children>
+        <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <Image url="@../../../images/atzea.png"/>
+        </ImageView>
+
+        <!--Erabiltzaile izena-->
+        <Label fx:id="erabiltzailea" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Erabiltzailea" textFill="#CFD0CE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+        <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Izena -->
+                <Label text="Plater Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+                <ComboBox fx:id="plateraComboBox" promptText="Aukeratu Platera" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font-size: 12px;" maxWidth="300"/>
+                <Button onAction="#onPropietateakBilatuClick" text="Plateraren Produktuak Kargatu" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" maxWidth="300" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <!-- Tabla para mostrar los productos añadidos -->
+                <TableView fx:id="aukeratutakoProduktuak" prefHeight="150" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                    <columns>
+                        <TableColumn fx:id="produktuZutabea" text="Produktua" prefWidth="150"/>
+                        <TableColumn fx:id="kantitateZutabea" text="Kantitatea" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <Label text="Produktua:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
+                <ComboBox fx:id="produktuakComboBox" promptText="Aukeratu Platera" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-size: 12px;" maxWidth="300"/>
+                <Label text="Kantitatea:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="5"/>
+                <TextField fx:id="KantitateaField" promptText="Sartu Kantitatea" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-size: 12px;" maxWidth="300"/>
+
+                <!--Izena-->
+                <Label text="Plater Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="6"/>
+                <TextField fx:id="plateraField" promptText="Sartu Kantitatea" GridPane.columnIndex="1" GridPane.rowIndex="6" style="-fx-font-size: 12px;" maxWidth="300"/>
+                <Label text="Deskribapena:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="7"/>
+                <TextField fx:id="deskribapenaField" promptText="Idatzi deskribapen bat" GridPane.columnIndex="1" GridPane.rowIndex="7" style="-fx-font-size: 12px;" maxWidth="300"/>
+                <Label text="Kategoria:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="8"/>
+                <ComboBox fx:id="kategoriaComboBox" promptText="Hautatu plater kategoria" GridPane.columnIndex="1" GridPane.rowIndex="8" style="-fx-font-size: 12px;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Edaria" />
+                            <String fx:value="Lehenengo platera" />
+                            <String fx:value="Bigarren platera" />
+                            <String fx:value="Postrea" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Label text="Prezioa:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="9"/>
+                <TextField fx:id="prezioaField" promptText="Idatzi prezioa platerari" GridPane.columnIndex="1" GridPane.rowIndex="9" style="-fx-font-size: 12px;" maxWidth="300"/>
+                <Label text="Menuan Dago:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="10"/>
+                <ComboBox fx:id="menuComboBox" promptText="Menuan jarri" GridPane.columnIndex="1" GridPane.rowIndex="10" style="-fx-font-size: 12px;">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Bai" />
+                            <String fx:value="Ez" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </GridPane>
+            <!-- Botón Guardar -->
+            <Button onAction="#onEguneratuPlateraClick" text="Eguneratu Platera" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" maxWidth="120"/>
+        </VBox>
+    </children>
+</AnchorPane>

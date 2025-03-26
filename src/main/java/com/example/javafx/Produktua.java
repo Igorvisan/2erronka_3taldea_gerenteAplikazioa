@@ -10,7 +10,8 @@ public class Produktua {
 
     public Produktua(){}
 
-    public Produktua(String izena, int stock, int max, int min, float prezioa) {
+    public Produktua(int id, String izena, int stock, int max, int min, float prezioa) {
+        this.id = id;
         this.izena = izena;
         this.stock = stock;
         this.max = max;

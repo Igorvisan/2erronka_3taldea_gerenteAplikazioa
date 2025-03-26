@@ -68,6 +68,7 @@ public class PlateraGehituController extends BaseController implements Initializ
     }
 
     public void onGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
+        String erabiltzaileaText = erabiltzailea.getText();
         String izena = izenaField.getText();
         String deskribapena = deskribapenaField.getText();
         String kategoria = kategoriaComboBox.getValue().toString();
@@ -96,7 +97,7 @@ public class PlateraGehituController extends BaseController implements Initializ
         plateraBerria.setPrezioa(prezioa);
         plateraBerria.setMenu(menuanDago);
 
-        int idPlatera = PlateraDbKudeaketa.plateraGehitu(plateraBerria);
+        int idPlatera = PlateraDbKudeaketa.plateraGehitu(plateraBerria, erabiltzaileaText);
 
         if(idPlatera > 0){
             for(ProductoSeleccionado ps : listaProduktuak){
@@ -112,13 +113,11 @@ public class PlateraGehituController extends BaseController implements Initializ
         KantitateaField.clear();
         menuComboBox.getSelectionModel().clearSelection();
 
-        String erab = erabiltzailea.getText();
-
         FXMLLoader plateraMenua = new FXMLLoader(App.class.getResource("plateraMenua.fxml"));
         Scene scene = new Scene(plateraMenua.load());
         PlateraMenuaController pmc = plateraMenua.getController();
         Stage usingStage = this.getUsingStage();
-        pmc.setErabiltzailea(erab);
+        pmc.setErabiltzailea(erabiltzaileaText);
         pmc.setUsingStage(usingStage);
         usingStage.setScene(scene);
         usingStage.setTitle("Platera Menua");

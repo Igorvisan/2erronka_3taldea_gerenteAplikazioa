@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<AnchorPane style="-fx-background-color: #345A7B" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.PlateraEzabatuController">
+    <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <image>
+            <Image url="@../../../images/atzea.png" />
+        </image>
+    </ImageView>
+
+    <!-- Usuario Label -->
+    <Label fx:id="erabiltzailea" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Erabiltzailea" textFill="#CFD0CE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0"/>
+
+    <TableView fx:id="platerenTaula" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" AnchorPane.bottomAnchor="150.0">
+        <columns>
+            <TableColumn fx:id="izenaColumn" text="Izena" />
+            <TableColumn fx:id="deskribapenaColumn" text="Deskribapena" />
+            <TableColumn fx:id="kategoriaColumn" text="Kategoria" />
+            <TableColumn fx:id="kantitateaColumn" text="Kantitatea" />
+            <TableColumn fx:id="prezioaColumn" text="Prezioa" />
+            <TableColumn fx:id="menuColumn" text="Menu" />
+        </columns>
+    </TableView>
+
+    <!-- Detalles del trabajador seleccionado -->
+    <VBox alignment="CENTER" spacing="10" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.bottomAnchor="20.0">
+        <Button onAction="#onEzabatuPlateraClick" text="Ezabatu" style="-fx-background-color: #FF3B30; -fx-text-fill: white; -fx-font-size: 14px;" maxWidth="120"/>
+    </VBox>
+</AnchorPane>

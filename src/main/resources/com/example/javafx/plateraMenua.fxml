@@ -33,8 +33,8 @@
     <HBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="550.0">
         <children>
             <Button fx:id="btnGehitu" onAction="#onPlateraGehituBotoiaClick" text="Platera Gehitu" prefHeight="40.0" prefWidth="150.0" />
-            <Button fx:id="btnEzabatu" text="Platera Ezabatu" prefHeight="40.0" prefWidth="150.0" />
-            <Button fx:id="btnEditatu" text="Platera Editatu" prefHeight="40.0" prefWidth="150.0" />
+            <Button fx:id="btnEzabatu" onAction="#onPlateraEzabatuBotoiaClick" text="Platera Ezabatu" prefHeight="40.0" prefWidth="150.0" />
+            <Button fx:id="btnEditatu" onAction="#onPlateraEditatuBotoiaClick" text="Platera Editatu" prefHeight="40.0" prefWidth="150.0" />
         </children>
     </HBox>
 

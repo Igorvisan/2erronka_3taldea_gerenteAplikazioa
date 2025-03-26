@@ -55,7 +55,6 @@
                 <Label text="Prezioa:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
                 <TextField fx:id="prezioaField" promptText="Ezarri prezioa zure platerari" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-size: 12px;"/>
 
-                <!-- Txat Baimena -->
                 <Label text="Menuan Dago:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="5"/>
                 <ComboBox fx:id="menuComboBox" promptText="Menuan jarri" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-size: 12px;">
                     <items>
@@ -78,6 +77,8 @@
                         <TableColumn fx:id="kantitateZutabea" text="Kantitatea" prefWidth="100"/>
                     </columns>
                 </TableView>
+
+
             </GridPane>
             <!-- Botón Guardar -->
             <Button onAction="#onGehituBotoiaClick" text="Gehitu Platera" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" maxWidth="120"/>

@@ -19,7 +19,8 @@ public class Platera {
 
     public Platera() {}
 
-    public Platera(String izena, String deskribapena, String kategoria, int kantitatea, float prezioa, boolean menu) {
+    public Platera(int id, String izena, String deskribapena, String kategoria, int kantitatea, float prezioa, boolean menu) {
+        this.id = id;
         this.izena = izena;
         this.deskribapena = deskribapena;
         this.kategoria = kategoria;
