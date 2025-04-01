@@ -9,7 +9,7 @@
 <?import javafx.collections.ObservableList?>
 <?import java.lang.String?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.LangileaGehituController" style="-fx-background-color: #345A7B;">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.LangileaGehituController" style="-fx-background-color: #f6f0e4;">
     <children>
         <!-- Header -->
         <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -30,23 +30,23 @@
                 </columnConstraints>
 
                 <!-- Izena -->
-                <Label text="Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+                <Label text="Izena:" style="-fx-font-size: 14px; -fx-text-fill: black;"/>
                 <TextField fx:id="izenaField" promptText="Sartu izena" GridPane.columnIndex="1" style="-fx-font-size: 12px;"/>
 
                 <!-- DNI -->
-                <Label text="DNI:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="1"/>
+                <Label text="DNI:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="1"/>
                 <TextField fx:id="dniField" promptText="Sartu DNI-a" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size: 12px;"/>
 
                 <!-- Email -->
-                <Label text="Email:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="2"/>
+                <Label text="Email:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="2"/>
                 <TextField fx:id="emailField" promptText="Sartu email-a" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-size: 12px;"/>
 
                 <!-- Telefonoa -->
-                <Label text="Telefono:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="3"/>
+                <Label text="Telefono:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="3"/>
                 <TextField fx:id="telefonoField" promptText="Sartu telefono zenbakia" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 12px;"/>
 
                 <!-- Lan Postua -->
-                <Label text="Lan Postua:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
+                <Label text="Lan Postua:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="4"/>
                 <ComboBox fx:id="lanPostuaComboBox" promptText="Hautatu lan postua" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-size: 12px;">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -59,11 +59,11 @@
                 </ComboBox>
 
                 <!-- Pasahitza -->
-                <Label text="Pasahitza:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="5"/>
+                <Label text="Pasahitza:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="5"/>
                 <PasswordField fx:id="pasahitzaField" promptText="Sartu pasahitza" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-size: 12px;"/>
 
                 <!-- Txat Baimena -->
-                <Label text="Txat-eko baimena:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="6"/>
+                <Label text="Txat-eko baimena:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="6"/>
                 <ComboBox fx:id="txatBaimenaComboBox" promptText="Hautatu baimena" GridPane.columnIndex="1" GridPane.rowIndex="6" style="-fx-font-size: 12px;">
                     <items>
                         <FXCollections fx:factory="observableArrayList">

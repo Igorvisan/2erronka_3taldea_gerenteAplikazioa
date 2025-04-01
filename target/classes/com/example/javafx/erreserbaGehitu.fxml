@@ -9,7 +9,7 @@
 <?import javafx.collections.ObservableList?>
 <?import java.lang.String?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.ErreserbaGehituController" style="-fx-background-color: #345A7B;">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.ErreserbaGehituController" style="-fx-background-color: #f6f0e4;">
     <children>
         <!-- Header -->
         <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -30,19 +30,19 @@
                 </columnConstraints>
 
                 <!-- Erreserba Izena -->
-                <Label text="Erreserba Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+                <Label text="Erreserba Izena:" style="-fx-font-size: 14px; -fx-text-fill: black;"/>
                 <TextField fx:id="izenaField" promptText="Sartu Erreserbarako izena" GridPane.columnIndex="1" style="-fx-font-size: 12px;"/>
 
                 <!-- Erreserba Data -->
-                <Label text="Erreserba Data:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="1"/>
+                <Label text="Erreserba Data:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="1"/>
                 <DatePicker fx:id="dateErreserbaData" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                 <!-- Pertsona Kopurua -->
-                <Label text="Pertsona kopurua:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="2"/>
+                <Label text="Pertsona kopurua:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="2"/>
                 <TextField fx:id="pertsonaField" promptText="Sartu Erreserbarako pertsona kopurua" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-size: 12px;"/>
 
                 <!-- Mahaia -->
-                <Label text="Mahaia:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="3"/>
+                <Label text="Mahaia:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="3"/>
                 <TextField fx:id="mahaiaField" promptText="Sartu erreserbatu den mahaia" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 12px;"/>
             </GridPane>
 

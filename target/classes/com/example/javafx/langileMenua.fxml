@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane style="-fx-background-color: #345A7B;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.LangileMenuaController">
+<AnchorPane style="-fx-background-color: #f6f0e4;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.LangileMenuaController">
     <children>
         <!-- Botón de ir atrás más grande -->
         <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -30,9 +30,9 @@
 
             <HBox spacing="10" alignment="CENTER">
                 <children>
-                    <Button fx:id="btnGehitu" onAction="#onLangileaGehituBotoiaClick" text="Langilea Gehitu" prefHeight="40.0" prefWidth="150.0" />
-                    <Button fx:id="btnEzabatu" onAction="#onLangileaEzabatuBotoiaClick" text="Langilea Ezabatu" prefHeight="40.0" prefWidth="150.0" />
-                    <Button fx:id="btnEditatu" onAction="#onLangileaEditatuBotoiaClick" text="Langilea Editatu" prefHeight="40.0" prefWidth="150.0" />
+                    <Button fx:id="btnGehitu" onAction="#onLangileaGehituBotoiaClick" text="Langilea Gehitu" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #8b4513; -fx-text-fill: white"/>
+                    <Button fx:id="btnEzabatu" onAction="#onLangileaEzabatuBotoiaClick" text="Langilea Ezabatu" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #8b4513; -fx-text-fill: white"/>
+                    <Button fx:id="btnEditatu" onAction="#onLangileaEditatuBotoiaClick" text="Langilea Editatu" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #8b4513; -fx-text-fill: white"/>
                 </children>
             </HBox>
         </VBox>

@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.collections.FXCollections?>
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.PlateraGehituController" style="-fx-background-color: #345A7B;">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.javafx.PlateraGehituController" style="-fx-background-color: #f6f0e4;">
     <children>
         <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
             <Image url="@../../../images/atzea.png"/>
@@ -27,15 +27,15 @@
                 </columnConstraints>
 
                 <!-- Izena -->
-                <Label text="Izena:" style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+                <Label text="Izena:" style="-fx-font-size: 14px; -fx-text-fill: black;"/>
                 <TextField fx:id="izenaField" promptText="Sartu plateraren izena" GridPane.columnIndex="1" style="-fx-font-size: 12px;"/>
 
                 <!--Deskribapena-->
-                <Label text="Deskribapena:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="1"/>
+                <Label text="Deskribapena:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="1"/>
                 <TextField fx:id="deskribapenaField" promptText="Ezarri Deskribapen motz bat" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-size: 12px;"/>
 
                 <!-- Kategoria -->
-                <Label text="Kategoria:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="2"/>
+                <Label text="Kategoria:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="2"/>
                 <ComboBox fx:id="kategoriaComboBox" promptText="Hautatu plater kategoria" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-font-size: 12px;">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -48,14 +48,14 @@
                 </ComboBox>
 
                 <!--Kantitatea-->
-                <Label text="Kantitatea:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="3"/>
+                <Label text="Kantitatea:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="3"/>
                 <TextField fx:id="KantitateaField" promptText="Sartu Kantitatea" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-font-size: 12px;"/>
 
                 <!--Prezioa-->
-                <Label text="Prezioa:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="4"/>
+                <Label text="Prezioa:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="4"/>
                 <TextField fx:id="prezioaField" promptText="Ezarri prezioa zure platerari" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-font-size: 12px;"/>
 
-                <Label text="Menuan Dago:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="5"/>
+                <Label text="Menuan Dago:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="5"/>
                 <ComboBox fx:id="menuComboBox" promptText="Menuan jarri" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-font-size: 12px;">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -64,9 +64,9 @@
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Label text="Produktua Aukeratu:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="6"/>
+                <Label text="Produktua Aukeratu:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="6"/>
                 <ComboBox fx:id="produktuakComboBox" promptText="Ze Produktu Dauka" GridPane.columnIndex="1" GridPane.rowIndex="6" style="-fx-font-size: 12px;"/>
-                <Label text="Produktu kantitatea:" style="-fx-font-size: 14px; -fx-text-fill: white;" GridPane.rowIndex="7"/>
+                <Label text="Produktu kantitatea:" style="-fx-font-size: 14px; -fx-text-fill: black;" GridPane.rowIndex="7"/>
                 <TextField fx:id="produktuKantitatea" promptText="Ezarri Produktu Kantitatea" GridPane.columnIndex="1" GridPane.rowIndex="7" style="-fx-font-size: 12px;"/>
                 <Button onAction="#onGehituProduktuaClick" text="Gehitu Produktua" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" maxWidth="180" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 

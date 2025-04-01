@@ -91,18 +91,18 @@ public class MahaiaEzabatuController extends BaseController {
         }
     }
 
-    @FXML
     public void onAtzeaBotoiaClick(MouseEvent mouseEvent) throws IOException {
+
         String erab = erabiltzailea.getText();
 
-        FXMLLoader langileMenua = new FXMLLoader(App.class.getResource("langileMenua.fxml"));
-        Scene scene = new Scene(langileMenua.load());
-        LangileMenuaController lmc = langileMenua.getController();
+        FXMLLoader mahaiaMenua = new FXMLLoader(App.class.getResource("mahaiaMenua.fxml"));
+        Scene scene = new Scene(mahaiaMenua.load());
+        MahaiaMenuaController mmc = mahaiaMenua.getController();
         Stage usingStage = this.getUsingStage();
-        lmc.setErabiltzailea(erab);
-        lmc.setUsingStage(usingStage);
+        mmc.setErabiltzailea(erab);
+        mmc.setUsingStage(usingStage);
         usingStage.setScene(scene);
-        usingStage.setTitle("Langile Menua");
+        usingStage.setTitle("Mahaien Menua");
         usingStage.show();
     }
 

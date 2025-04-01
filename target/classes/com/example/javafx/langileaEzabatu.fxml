@@ -11,7 +11,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx.LangileaEzabatuController"
-            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #345A7B;">
+            prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f6f0e4;">
 
     <!-- Header -->
     <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">

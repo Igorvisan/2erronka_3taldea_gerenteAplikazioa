@@ -13,7 +13,7 @@
 
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.ComboBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.LangileaEditatuController" style="-fx-background-color: #345A7B;">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.LangileaEditatuController" style="-fx-background-color: #f6f0e4;">
     <children>
         <!-- Icono de regreso -->
         <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -80,7 +80,7 @@
                 </items>
             </ComboBox>
             <!-- Botón de guardar -->
-            <Button text="Editatu" onAction="#onEditatuBotoiaClick"/>
+            <Button text="Editatu" onAction="#onEditatuBotoiaClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;" maxWidth="120"/>
         </VBox>
     </children>
 </AnchorPane>

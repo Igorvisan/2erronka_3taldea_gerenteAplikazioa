@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane style="-fx-background-color: #345A7B;" xmlns="http://javafx.com/javafx/23.0.1"
+<AnchorPane style="-fx-background-color: #f6f0e4;" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.javafx.HasierakoMenuaController">
     <children>
         <ImageView fitHeight="161.0" fitWidth="206.0" layoutX="20.0" layoutY="20.0" pickOnBounds="true"
                    preserveRatio="true">
             <image>
-                <Image url="@../../../images/restauranLogo (1).png"/>
+                <Image url="@../../../images/the_bulls_sin_fondo.png"/>
             </image>
         </ImageView>
         <Label fx:id="erabiltzailea" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Erabiltzailea" textFill="#CFD0CE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />

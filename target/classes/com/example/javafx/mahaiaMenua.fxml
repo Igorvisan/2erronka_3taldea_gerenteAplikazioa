@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane style="-fx-background-color: #345A7B;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.MahaiaMenuaController">
+<AnchorPane style="-fx-background-color: #f6f0e4;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx.MahaiaMenuaController">
     <children>
         <!-- Botón de ir atrás más grande -->
         <ImageView onMouseClicked="#onAtzeaBotoiaClick" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -28,9 +28,9 @@
         <!-- Botones en fila horizontal justo debajo de la tabla -->
         <HBox spacing="10" alignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="420.0">
             <children>
-                <Button fx:id="btnGehitu" onAction="#onMahaiaGehituBotoiaClick" text="Mahaia Gehitu" prefHeight="40.0" prefWidth="150.0" />
-                <Button fx:id="btnEzabatu" onAction="#onMahaiaEzabatuBotoiaClick" text="Mahaia Ezabatu" prefHeight="40.0" prefWidth="150.0" />
-                <Button fx:id="btnEditatu" onAction="#onMahaiaEditatuBotoiaClick" text="Mahaia Editatu" prefHeight="40.0" prefWidth="150.0" />
+                <Button fx:id="btnGehitu" onAction="#onMahaiaGehituBotoiaClick" text="Mahaia Gehitu" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #8b4513; -fx-text-fill: white"/>
+                <Button fx:id="btnEzabatu" onAction="#onMahaiaEzabatuBotoiaClick" text="Mahaia Ezabatu" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #8b4513; -fx-text-fill: white"/>
+                <Button fx:id="btnEditatu" onAction="#onMahaiaEditatuBotoiaClick" text="Mahaia Editatu" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #8b4513; -fx-text-fill: white"/>
             </children>
         </HBox>
     </children>
