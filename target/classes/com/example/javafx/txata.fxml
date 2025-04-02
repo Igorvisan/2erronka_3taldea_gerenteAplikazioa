@@ -24,7 +24,7 @@
         <!-- Campo para escribir mensajes -->
         <TextField fx:id="messageInput" promptText="Escribe tu mensaje..." style="-fx-background-color: #d6c7b2; -fx-text-fill: #CFD0CE;" AnchorPane.leftAnchor="20.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="180.0" />
 
-        <Button fx:id="fileChooser" text="Archivos" style="-fx-background-color: #2196F3; -fx-text-fill: #FFFFFF;" prefWidth="80.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="100.0" />
+        <Button fx:id="fileChooser" text="Archivos" onAction="#onArchivosClick" style="-fx-background-color: #2196F3; -fx-text-fill: #FFFFFF;" prefWidth="80.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="100.0" />
 
         <!-- Botón para enviar el mensaje -->
         <Button fx:id="sendButton" text="Enviar" onAction="#onSendButtonClick" style="-fx-background-color: #4CAF50; -fx-text-fill: #FFFFFF;" prefWidth="80.0" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" />
