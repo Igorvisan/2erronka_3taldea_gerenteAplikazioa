@@ -21,7 +21,7 @@
         <VBox alignment="CENTER" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Aukeratu Zerbitzua"
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Aukeratu Kudeaketa"
                        textFill="#CFD0CE"/>
                 <Button style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 16px; -fx-background-radius: 20; -fx-padding: 10 20;"
                         text="Mahaiak Kudeatu" onAction="#onMahaiakKudeatuBotoiaClick" prefWidth="200.0"/>
@@ -39,5 +39,9 @@
         <Button style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
                 text="Saioa Itxi" onAction="#onSaioaItxiBotoiaClick" AnchorPane.bottomAnchor="20.0"
                 AnchorPane.rightAnchor="20.0" prefWidth="120.0"/>
+        <!-- Add this new button for weather data -->
+        <Button style="-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
+                text="Eguraldiaren Datuak Igo"  AnchorPane.bottomAnchor="20.0"
+                AnchorPane.rightAnchor="150.0" prefWidth="220.0"/>
     </children>
 </AnchorPane>

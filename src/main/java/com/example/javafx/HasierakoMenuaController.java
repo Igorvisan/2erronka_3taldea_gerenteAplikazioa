@@ -120,4 +120,8 @@ public class HasierakoMenuaController extends BaseController {
         usingStage.setTitle("Erreserba Menua");
         usingStage.show();
     }
+
+    public void onEguraldiClickButton(ActionEvent actionEvent) throws IOException {
+
+    }
 }
