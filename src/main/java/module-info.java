@@ -7,6 +7,10 @@ module com.example.javafx {
     requires javafx.swing;
     requires javafx.web;
     requires mysql.connector.j;
+    requires google.api.client;
+    requires com.google.api.client;
+    requires com.google.api.services.drive;
+    requires com.google.api.client.json.gson;
 
     opens com.example.javafx to javafx.fxml;
     exports com.example.javafx;

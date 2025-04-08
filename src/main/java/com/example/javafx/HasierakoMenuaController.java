@@ -1,5 +1,6 @@
 package com.example.javafx;
 
+import com.google.api.services.drive.Drive;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.w3c.dom.Document;
 
+import javax.swing.event.DocumentEvent;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 
@@ -122,6 +126,35 @@ public class HasierakoMenuaController extends BaseController {
     }
 
     public void onEguraldiClickButton(ActionEvent actionEvent) throws IOException {
+        UrlConnectXml connectXml = new UrlConnectXml();
+        Document xmlDocument = connectXml.getXmlDocument();
 
+        if(xmlDocument != null) {
+            String XPath = "//prediccion/dia/estado_cielo | //prediccion/dia/viento | //prediccion/dia/temperatura | //prediccion/dia/sens_termica | //prediccion/dia/humedad_relativa";
+            Document newXmlDocument = XPathTransformer.applyXPath(xmlDocument, XPath);
+            if(newXmlDocument != null) {
+                System.out.println("SE HA APLICADO CORRECTAMENTE EL XPATH");
+                //AQUI CONTRUIREMOS EL INPUTSTREAM DEL ARCHIVO XML
+                InputStream inputStreamXML = ConvertToInputStream.convertXmlDocument(newXmlDocument);
+
+                if(inputStreamXML != null) {
+                    //Ahora usaremos el google drive service
+                    try{
+                        ServicioDrive driveServices = new ServicioDrive();
+                        Drive drive = driveServices.getDriveService();
+
+                        UploadToDrive.subirDocumento(inputStreamXML, drive);
+                    }catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    System.out.println("No se ha podido hacer bien el InputStreamXML");
+                }
+            }else{
+                System.out.println("No se ha podido aplicar correctamente el XPATH");
+            }
+        }else{
+            System.out.println("No se ha encontrado ningun documento XML");
+        }
     }
 }

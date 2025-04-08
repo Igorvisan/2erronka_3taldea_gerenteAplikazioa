@@ -42,6 +42,6 @@
         <!-- Add this new button for weather data -->
         <Button style="-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
                 text="Eguraldiaren Datuak Igo"  AnchorPane.bottomAnchor="20.0"
-                AnchorPane.rightAnchor="150.0" prefWidth="220.0"/>
+                AnchorPane.rightAnchor="150.0" onAction="#onEguraldiClickButton" prefWidth="220.0"/>
     </children>
 </AnchorPane>

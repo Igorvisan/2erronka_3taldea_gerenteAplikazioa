@@ -6,6 +6,7 @@ com\example\javafx\PlateraEditatuController.class
 com\example\javafx\Produktua.class
 com\example\javafx\PlateraEditatuController$1.class
 com\example\javafx\PlateraGehituController$2.class
+com\example\javafx\ServicioDrive.class
 com\example\javafx\MahaiaMenuaController.class
 com\example\javafx\MahaiaEditatuController$1.class
 com\example\javafx\PlateraProduktua.class
@@ -37,9 +38,12 @@ com\example\javafx\ErreserbaMenuaController.class
 com\example\javafx\PlateraEzabatuController.class
 com\example\javafx\Platera.class
 com\example\javafx\ErreserbaGehituController.class
+com\example\javafx\XPathTransformer.class
 com\example\javafx\LangileaEditatuController.class
 com\example\javafx\HelloController.class
 com\example\javafx\LangileaGehituController.class
+com\example\javafx\ConvertToInputStream.class
 com\example\javafx\PlateraEditatuController$2.class
 com\example\javafx\PlateraGehituController.class
 com\example\javafx\SaioaHasiController.class
+com\example\javafx\UrlConnectXml.class
