@@ -16,6 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.*;
@@ -139,24 +140,8 @@ public class TxatController extends BaseController {
                 String mensaje;
                 while ((mensaje = in.readLine()) != null) {
                     System.out.println("Mensaje recibido del servidor: " + mensaje);
-                    String mensajeCompleto;
-                    //Ya que el formato es Usuario: mensajeCifrado
-                    String[] partes = mensaje.split(": ", 2);
-                    if(partes.length == 2){
-                        String usuario = partes[0];
-                        String mensajeCifrado = partes[1];
-                        //Desencriptar el mensaje
-                        try{
-                            String mensajeOriginal = desencriptacion(mensajeCifrado);
-                             mensajeCompleto = usuario + ": " + mensajeOriginal;
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }else{
-                        mensajeCompleto = mensaje;
-                    }
-                    final String mensajeFinal = mensajeCompleto;
-                    Platform.runLater(() -> messagesArea.appendText(mensajeFinal + "\n"));
+                    // Usar el nuevo método de procesamiento
+                    procesarMensajes(mensaje);
                 }
 
                 System.out.println("El servidor ha cerrado la conexión o no hay más mensajes.");
@@ -240,6 +225,31 @@ public class TxatController extends BaseController {
 
         try {
             conectarAServidor(host, puerto);
+
+            messagesArea.setOnMouseClicked(event -> {
+                try{
+                    int indiceDeMensajeElegido = messagesArea.getCaretPosition();
+                    String textoMensaje = messagesArea.getText();
+
+                    //Encontrar la linea donde se ha hecho click
+                    int inicioLinea = textoMensaje.lastIndexOf('\n', indiceDeMensajeElegido);
+                    if(inicioLinea == -1)inicioLinea = 0;
+                    int finalLinea =  textoMensaje.indexOf('\n', indiceDeMensajeElegido);
+                    if(finalLinea == -1)finalLinea = textoMensaje.length();
+
+                    String lineaActual = textoMensaje.substring(inicioLinea, finalLinea).trim();
+
+                    //Verificamos si la linea es un archivo de imagen
+                    for(String key: imagenesRecibidas.keySet()){
+                        if(lineaActual.equals(key)){
+                            descargarImagen(imagenesRecibidas.get(key));
+                            break;
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
         } catch (Exception e) {
             mostrarError("Error al inicializar", e.getMessage());
         }
@@ -335,5 +345,44 @@ public class TxatController extends BaseController {
             Platform.runLater(() -> messagesArea.appendText(mensajeFinal + "\n"));
         }
     }
+
+    //Metodo para descargar el archivo al hacer cicl en la linea
+    private void descargarImagen(File file){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Archivo");
+        fileChooser.setInitialFileName(file.getName());
+
+        //Filtros para tipo de imagen
+        FileChooser.ExtensionFilter extensionDerachivos;
+        String opcionesExtension = file.getName().substring(file.getName().lastIndexOf(".") + 1).toLowerCase();
+        switch (opcionesExtension) {
+            case "png":
+                extensionDerachivos = new FileChooser.ExtensionFilter("Archivos PNG", "*.png");
+                break;
+            case "jpg":
+            case "jpeg":
+                extensionDerachivos = new FileChooser.ExtensionFilter("Archivos JPEG (*.jpg)", "*.jpg");
+                break;
+            case "gif":
+                extensionDerachivos = new FileChooser.ExtensionFilter("Archivos GIF", "*.gif");
+                break;
+            default:
+                extensionDerachivos = new FileChooser.ExtensionFilter("Todas las imagenes", "*.*");
+        }
+        fileChooser.getExtensionFilters().add(extensionDerachivos);
+        File destFile = fileChooser.showSaveDialog(stage);
+        if(destFile != null){
+            try{
+                Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                mostrarError("Imagen guardada", "La imagen se ha guardado correctamente en: " + destFile.getAbsolutePath());
+            }catch(IOException ex){
+                mostrarError("Error al guardar el archivo: ", ex.getMessage());
+            }
+        }else{
+            System.out.println("No has seleccionado un destino adecuado");
+        }
+    }
+
+
 }
 
