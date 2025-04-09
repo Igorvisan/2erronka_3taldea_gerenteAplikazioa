@@ -12,6 +12,9 @@ import java.io.InputStream;
 
 public class ConvertToInputStream {
     public static InputStream convertXmlDocument(Document xmlDocument) {
+        if(xmlDocument == null){
+            return null;
+        }
         try{
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
