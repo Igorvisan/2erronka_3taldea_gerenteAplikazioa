@@ -14,9 +14,11 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.util.Base64;
+import java.util.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -26,8 +28,6 @@ import java.io.*;
 import java.net.Socket;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TxatController extends BaseController {
 
@@ -51,6 +51,9 @@ public class TxatController extends BaseController {
     private Button fileChooser;
 
     private Stage stage;
+
+    // Añade esta propiedad a la clase para almacenar referencias a imágenes
+    private Map<String, File> imagenesRecibidas = new HashMap<>();
 
     private SecretKeySpec generateAesKeyFromPassphrase() throws Exception {
         MessageDigest sha256 = MessageDigest.getInstance(SHA_CRYPT);
@@ -252,19 +255,85 @@ public class TxatController extends BaseController {
 
         fileChooser.getExtensionFilters().add(imagesFiler);
 
-        List<File> selectedFiles = fileChooser.showOpenMultipleDialog(stage);
+        File imagenSleccionada = fileChooser.showOpenDialog(stage);
 
-        if(selectedFiles != null) {
-            StringBuilder fileInfo = new StringBuilder();
-            fileInfo.append("Archivo seleccionado: " + selectedFiles.size() + "\n");
+        if(imagenSleccionada != null) {
+            try{
+                //Convertiremos la imagen a Base64 para el servidor
+                byte[] imagenEnBytes = new byte[(int) imagenSleccionada.length()];
+                try(FileInputStream in = new FileInputStream(imagenSleccionada)){
+                    in.read(imagenEnBytes);
+                }
+                String archivoBase64 = Base64.getEncoder().encodeToString(imagenEnBytes);
 
-            for (File file : selectedFiles) {
-                fileInfo.append(" - ").append(file.getName()).append("\n");
+                //Ahora preparaemos el formato del mensaje a enviar
+                String usuario = erabiltzailea.getText();
+                String nombreDeImagen = imagenSleccionada.getName();
+
+                String mensajeCompleto = "IMG_FILE:" + usuario + ":" + nombreDeImagen + ":" + archivoBase64;
+
+                out.println(mensajeCompleto);
+
+                messagesArea.appendText("Tú: [Imagen enviada: " + nombreDeImagen + "]\n");
+            }catch(IOException ex){
+                mostrarError("Error al enviar el archivo: ", ex.getMessage());
             }
-            messagesArea.appendText(fileInfo.toString());
+        }else{
+            System.out.println("No ha selecionado ningun archivo");
         }
+    }
 
+    private void procesarMensajes(String mensaje){
+        if(mensaje.startsWith("IMG_FILE:")){
+            String[] partesMensajeImagen = mensaje.split(":", 4);
+            if(partesMensajeImagen.length == 4){
+                String usuario = partesMensajeImagen[1];
+                String archivo = partesMensajeImagen[2];
+                String base64Data = partesMensajeImagen[3];
 
+                //Guardar la imagen temporalmente
+                File temporalDir = new File(System.getProperty("java.io.tmpdir"));
+                File archivoFile = new File(temporalDir, archivo);
+
+                try{
+                    byte[] imagenDeBytes = Base64.getDecoder().decode(base64Data);
+                    try(FileOutputStream fos = new FileOutputStream(archivoFile)){
+                        fos.write(imagenDeBytes);
+                    }
+
+                    //Mostramos el mensaje final
+                    final String mensajeFinal = usuario + ":[Imagen recibida: " + archivo + "] - Haz click para descargar";
+                    Platform.runLater(() -> {
+                        int indiceMensaje = messagesArea.getText().length();
+                        messagesArea.appendText(mensajeFinal + "\n");
+
+                        // Guardar referencia a la imagen recibida
+                        imagenesRecibidas.put(mensajeFinal, archivoFile);
+                    });
+                }catch(IOException ex){
+
+                }
+            }
+        }else {
+            String mensajeCompleto;
+            //Ya que el formato es Usuario: mensajeCifrado
+            String[] partes = mensaje.split(": ", 2);
+            if (partes.length == 2) {
+                String usuario = partes[0];
+                String mensajeCifrado = partes[1];
+                //Desencriptar el mensaje
+                try {
+                    String mensajeOriginal = desencriptacion(mensajeCifrado);
+                    mensajeCompleto = usuario + ": " + mensajeOriginal;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                mensajeCompleto = mensaje;
+            }
+            final String mensajeFinal = mensajeCompleto;
+            Platform.runLater(() -> messagesArea.appendText(mensajeFinal + "\n"));
+        }
     }
 }
 

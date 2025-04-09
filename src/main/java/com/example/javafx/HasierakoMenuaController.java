@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTPClient;
 import org.w3c.dom.Document;
 
 import javax.swing.event.DocumentEvent;
@@ -139,14 +140,43 @@ public class HasierakoMenuaController extends BaseController {
 
                 if(inputStreamXML != null) {
                     //Ahora usaremos el google drive service
-                    try{
-                        ServicioDrive driveServices = new ServicioDrive();
-                        Drive drive = driveServices.getDriveService();
+                        //Configuracion FTP
+                        String servidor = "192.168.115.154";
+                        String user = "ikasleak";
+                        String contrasena = "ikasleak";
+                        String carpetaRemota = "/Filezilla";
+                        String nombreArchivo = "tiempoErronka2.xml";
+                        int puerto = 21;
 
-                        UploadToDrive.subirDocumento(inputStreamXML, drive);
-                    }catch(Exception e) {
-                        e.printStackTrace();
-                    }
+                        // Subir a FTP
+                        FTPClient ftpClient = new FTPClient();
+                        try{
+                            ftpClient.connect(servidor, puerto);
+                            ftpClient.login(user, contrasena);
+                            ftpClient.enterLocalPassiveMode();
+                            ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+
+                            boolean dirCrear = ftpClient.makeDirectory(carpetaRemota);
+                            System.out.println("Creacion de carpeta: " + (dirCrear ? "Exitosa" : "Ya existe"));
+
+                            boolean exito = ftpClient.storeFile(nombreArchivo, inputStreamXML);
+                            if(exito) {
+                                System.out.println("Se ha guardado el archivo exitosamente");
+                            }else{
+                                System.out.println("No se ha guardado el archivo como deberia");
+                            }
+                        }catch(IOException ex){
+                            ex.printStackTrace();
+                        }finally {
+                            try{
+                                if(ftpClient.isConnected()) {
+                                    ftpClient.logout();
+                                    ftpClient.disconnect();
+                                }
+                            }catch(IOException ex){
+                                ex.printStackTrace();
+                            }
+                        }
                 }else{
                     System.out.println("No se ha podido hacer bien el InputStreamXML");
                 }
