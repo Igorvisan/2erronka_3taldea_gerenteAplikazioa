@@ -13,6 +13,7 @@ public class DbKonexioa {
     // konexioa hasieran null dela ziurtatu
     private static Connection connection = null;
 
+
     // konexioa sortzeko funtzioa lortu
     public static Connection getKonexioa() throws SQLException {
         if (connection == null || connection.isClosed()) {  //konexioa null bada eta itxita badago funtziora sartu

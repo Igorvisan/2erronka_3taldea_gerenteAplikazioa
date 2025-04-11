@@ -3,11 +3,13 @@ package com.example.javafx;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
+import java.net.UnknownHostException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UrlConnectXmlTest {
     @Test
-    void testGetDocumentXml(){
+    void getDocumentXml_validUrl_retursValidUrl(){
         UrlConnectXml urlConnectXml = new UrlConnectXml();
 
         Document xml = urlConnectXml.getXmlDocument();
@@ -16,13 +18,25 @@ class UrlConnectXmlTest {
     }
 
     @Test
-    void testgetXmlDocument2_retursInvalidURL(){
+    void getXmlDocument2_invalidUrl_returnsNull() {
+        // Guardamos el valor anterior
+        String oldGlobalVariable = UrlConnectXml.GLOBAL_VARIABLE;
+
+        // Establecemos una URL inválida
         UrlConnectXml.GLOBAL_VARIABLE = "https://url-invalida.xml";
 
         UrlConnectXml urlConnectXml = new UrlConnectXml();
 
-        Document xml = urlConnectXml.getXmlDocument();
+        Document xml = null;
+        Exception thrownException = null;
 
-        assertNull(xml, "El documento XML deberia de ser nulo con la URL invalida");
+        xml = urlConnectXml.getXmlDocument();
+
+        // Comprobamos que el documento es nulo
+        assertNull(xml, "El documento XML debería ser nulo con la URL inválida");
+
+        // Restauramos el valor original
+        UrlConnectXml.GLOBAL_VARIABLE = oldGlobalVariable;
     }
+
 }

@@ -31,5 +31,4 @@ class ConvertToInputStreamTest {
         InputStream mockInputStream = ConvertToInputStream.convertXmlDocument(null);
          assertNull(mockInputStream, "Deberia de ser null el InputStream");
     }
-
 }

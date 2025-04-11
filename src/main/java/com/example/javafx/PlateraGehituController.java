@@ -68,6 +68,7 @@ public class PlateraGehituController extends BaseController implements Initializ
     }
 
     public void onGehituBotoiaClick(ActionEvent actionEvent) throws IOException {
+
         String erabiltzaileaText = erabiltzailea.getText();
         String izena = izenaField.getText();
         String deskribapena = deskribapenaField.getText();
@@ -76,6 +77,13 @@ public class PlateraGehituController extends BaseController implements Initializ
         float prezioa = Float.parseFloat(prezioaField.getText());
         //Obtenemos el valor
         String menuSeleccion = menuComboBox.getSelectionModel().getSelectedItem().toString();
+
+        platerakGehitu(erabiltzaileaText, izena, deskribapena, kategoria, kantitatea, prezioa, menuSeleccion);
+
+    }
+
+    private void platerakGehitu(String erabiltzaileaText, String izena, String deskribapena, String kategoria, int kantitatea, float prezioa, String menuSeleccion) throws IOException {
+
         Boolean menuanDago = false;
 
         if("Bai".equals(menuSeleccion)) {
@@ -88,7 +96,7 @@ public class PlateraGehituController extends BaseController implements Initializ
             mezuaPantailaratu(izenaError, mezuLuzeaError, Alert.AlertType.ERROR);
             return;
         }
-        //Crear nuevo trabajador
+        //Crear nuevo Platera
         Platera plateraBerria = new Platera();
         plateraBerria.setIzena(izena);
         plateraBerria.setDeskribapena(deskribapena);
@@ -122,7 +130,6 @@ public class PlateraGehituController extends BaseController implements Initializ
         usingStage.setScene(scene);
         usingStage.setTitle("Platera Menua");
         usingStage.show();
-
     }
 
     @Override

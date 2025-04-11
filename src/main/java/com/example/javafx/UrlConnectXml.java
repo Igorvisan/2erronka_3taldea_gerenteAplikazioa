@@ -26,7 +26,7 @@ public class UrlConnectXml {
 
             inputStream.close(); // Cierra el stream después de parsear
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return doc;
     }
