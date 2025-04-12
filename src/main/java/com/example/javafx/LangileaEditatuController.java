@@ -96,6 +96,10 @@ public class LangileaEditatuController extends BaseController {
         Date updateData = Date.valueOf(LocalDate.now());
 
         // CORRECCIÓN: Ajustar el orden de los parámetros según el constructor de Langilea
+        langileaEditatu(id, dni, izena, abizena, email, lanPostua, pasahitza, telefonoa, txatBaimena, updateData, updateBy);
+    }
+
+    private void langileaEditatu(int id, String dni, String izena, String abizena, String email, String lanPostua, String pasahitza, String telefonoa, boolean txatBaimena, Date updateData, String updateBy) throws IOException {
         Langilea langileEditatua = new Langilea(id, dni, izena, abizena, email, lanPostua, pasahitza, telefonoa, txatBaimena, updateData, updateBy);
 
         boolean editatuta = LangileaDbKudeaketa.editatuLangilea(langileEditatua);

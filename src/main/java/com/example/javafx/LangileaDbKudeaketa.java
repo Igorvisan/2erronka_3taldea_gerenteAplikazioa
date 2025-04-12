@@ -12,7 +12,7 @@ import static com.example.javafx.FuntzioLaguntzaileak.mezuaPantailaratu;
 
 public class LangileaDbKudeaketa {
 
-    public static int erabiltzaileaKomprobatu(String erab, String pasa) {
+        public static int erabiltzaileaKomprobatu(String erab, String pasa) {
         String query = "SELECT postua FROM langilea WHERE izena = ? AND pasahitza = ?";
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -120,7 +120,8 @@ public class LangileaDbKudeaketa {
         }
     }
 
-    public static void langileaEzabatu(int langileId) {
+    public static boolean langileaEzabatu(int langileId) {
+        boolean opreacionRealizada = false;
         String query = "DELETE FROM langilea WHERE id = ?"; // Query para eliminar un trabajador por ID
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -134,22 +135,30 @@ public class LangileaDbKudeaketa {
             System.out.println("Filas afectadas: " + filasAfectadas); // Ver cuántas filas se han afectado
 
             if (filasAfectadas > 0) {
-                String izena = "Langilea Ezabatu";
+                /*String izena = "Langilea Ezabatu";
                 String mezuLuzea = "Langilea arrakastaz ezabatu da.";
-                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);*/
+                System.out.println("Se ha eliminado al trabajador");
+                opreacionRealizada = true;
             } else {
-                String izena = "Errorea";
+                /*String izena = "Errorea";
                 String mezuLuzea = "Ez da langilea aurkitu.";
-                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
+                System.out.println("No se ha podido eliminar al trabajador");
+                opreacionRealizada = false;
             }
 
         } catch (SQLException e) {
-            String izena = "Errorea";
+            /*String izena = "Errorea";
             String mezuLuzea = "Errorea langilea ezabatzean: " + e.getMessage();
-            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
             e.printStackTrace(); // Imprimir el error completo para depuración
         }
+
+        // Añadir esta línea para devolver el resultado
+        return opreacionRealizada;
     }
+
     public static boolean editatuLangilea(Langilea langilea) {
         // Consulta SQL para actualizar los datos del trabajador
         String query = "UPDATE langilea SET izena = ?, abizena = ?, dni = ?, korreoa = ?, postua = ?, pasahitza = ?, telefonoa = ?, txatBaimena = ?, updateData = ?, updateBy = ? WHERE id = ?";

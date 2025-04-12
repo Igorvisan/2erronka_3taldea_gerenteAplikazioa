@@ -30,6 +30,10 @@ public class LangileaEzabatuController extends BaseController {
 
     private Langilea aukeratutakoa;
 
+    public static final int LANGILE_EZABATUTA = 1;
+    public static final int LANGILE_EZ_EZABATUTA = 2;
+
+
     @FXML
     public void setErabiltzailea(String izena) {
         erabiltzailea.setText(izena);
@@ -62,11 +66,7 @@ public class LangileaEzabatuController extends BaseController {
             // Si el usuario confirma la eliminación
             if (result == buttonSi) {
                 // Eliminar al trabajador usando su ID
-                LangileaDbKudeaketa.langileaEzabatu(langileId);
-
-                // Limpiar campos e interfaz
-                izenaField.clear();
-                langileTaula.getSelectionModel().clearSelection();
+                langielaEzabutu(langileId);
 
                 // Regresar al menú de trabajadores
                 String erab = erabiltzailea.getText();
@@ -89,6 +89,19 @@ public class LangileaEzabatuController extends BaseController {
             String izena = "Errorea";
             String mezuLuzea = "Ez da langilerik aukeratu.";
             mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+        }
+    }
+
+    public int langielaEzabutu(int langileId) {
+        boolean exito = LangileaDbKudeaketa.langileaEzabatu(langileId);
+        if(exito) {
+            //Limpiar campos e interfaz
+            //izenaField.clear();
+            //langileTaula.getSelectionModel().clearSelection();
+
+            return LANGILE_EZABATUTA;
+        }else{
+            return LANGILE_EZ_EZABATUTA;
         }
     }
 
