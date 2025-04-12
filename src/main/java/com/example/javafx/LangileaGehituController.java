@@ -35,6 +35,9 @@ public class LangileaGehituController extends BaseController {
     @FXML
     private ComboBox txatBaimenaComboBox;
 
+    public static final int MISSING_DATA = 1;
+    public static final int NEW_WORKER = 2;
+
     @FXML
     public void setErabiltzailea(String izena) {
         erabiltzailea.setText(izena);
@@ -66,31 +69,7 @@ public class LangileaGehituController extends BaseController {
         String txatBaimenaSeleccionado = (String) txatBaimenaComboBox.getSelectionModel().getSelectedItem();
         Boolean txatBaimena = false; // Valor predeterminado (false)
 
-        // Si la selección es "Bai", asignar true
-        if ("Bai".equals(txatBaimenaSeleccionado)) {
-            txatBaimena = true;
-        }
-
-        // Verificar si los campos están vacíos
-        if (izena.isEmpty() || email.isEmpty() || pasahitza.isEmpty() || lanPostua.isEmpty()) {
-            String izenaError = "Errorea";
-            String mezuLuzeaError = "Datu guztiak sartu behar dituzu.";
-            mezuaPantailaratu(izenaError, mezuLuzeaError, Alert.AlertType.ERROR);
-            return;
-        }
-
-        // Crear el nuevo trabajador
-        Langilea langileBerria = new Langilea();
-        langileBerria.setIzena(izena);
-        langileBerria.setDni(dni);
-        langileBerria.setEmail(email);
-        langileBerria.setTelefonoa(telefonoa);
-        langileBerria.setPasahitza(pasahitza);
-        langileBerria.setLanPostua(lanPostua);
-        langileBerria.setTxatBaimena(txatBaimena); // Establecer el valor de txat_baimena
-
-        // Llamada a la base de datos para agregar el trabajador
-        LangileaDbKudeaketa.langileaGehitu(langileBerria);
+        anadirTrabajador(txatBaimenaSeleccionado, txatBaimena, izena, email, pasahitza, lanPostua, dni, telefonoa);
 
         // Limpiar los campos después de añadir
         izenaField.clear();
@@ -112,5 +91,39 @@ public class LangileaGehituController extends BaseController {
         usingStage.show();
     }
 
+    public static int anadirTrabajador(String txatBaimenaSeleccionado, Boolean txatBaimena, String izena, String email, String pasahitza, String lanPostua, String dni, String telefonoa) {
+        // Si la selección es "Bai", asignar true
+        if ("Bai".equals(txatBaimenaSeleccionado)) {
+            txatBaimena = true;
+        }else{
+            txatBaimena = false;
+        }
+
+        // Verificar si los campos están vacíos
+        // Validar campos nulos o vacíos
+        if (izena == null || izena.isEmpty() ||
+                email == null || email.isEmpty() ||
+                pasahitza == null || pasahitza.isEmpty() ||
+                lanPostua == null || lanPostua.isEmpty() ||
+                dni == null || dni.isEmpty() || // Verificar null y vacío
+                telefonoa == null || telefonoa.isEmpty()) { // Verificar null y vacío
+            System.out.println("Faltan datos por introducir");
+            return MISSING_DATA;
+        }
+
+        // Crear el nuevo trabajador
+        Langilea langileBerria = new Langilea();
+        langileBerria.setIzena(izena);
+        langileBerria.setDni(dni);
+        langileBerria.setEmail(email);
+        langileBerria.setTelefonoa(telefonoa);
+        langileBerria.setPasahitza(pasahitza);
+        langileBerria.setLanPostua(lanPostua);
+        langileBerria.setTxatBaimena(txatBaimena); // Establecer el valor de txat_baimena
+        // Llamada a la base de datos para agregar el trabajador
+        LangileaDbKudeaketa.langileaGehitu(langileBerria);
+
+        return NEW_WORKER;
+    }
 
 }

@@ -77,4 +77,5 @@ public class Langilea {
     public void setAbizena(String abizena) { this.abizena = abizena; }
     public String getDni() { return dni; }
     public void setDni(String dni) { this.dni = dni; }
+
 }

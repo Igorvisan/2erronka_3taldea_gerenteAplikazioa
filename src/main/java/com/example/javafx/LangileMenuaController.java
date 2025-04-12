@@ -21,7 +21,7 @@ public class LangileMenuaController extends BaseController {
     private Label erabiltzailea;
 
     @FXML
-    private TableView<Langilea> tableView;
+    public TableView<Langilea> tableView;
 
     @FXML
     private TableColumn<Langilea, String> izenaColumn;
@@ -40,9 +40,11 @@ public class LangileMenuaController extends BaseController {
     }
 
     public void initialize() {
+        mostrarTrabajadores();
+    }
 
+    public void mostrarTrabajadores() {
         ObservableList<Langilea> langileak = LangileaDbKudeaketa.getAllLangileak();
-
 
         tableView.setItems(langileak);
 
@@ -61,7 +63,6 @@ public class LangileMenuaController extends BaseController {
 
         tableView.setPrefWidth(300);
         tableView.setPrefHeight(150);
-
     }
 
     public void onAtzeaBotoiaClick(MouseEvent mouseEvent) throws IOException {

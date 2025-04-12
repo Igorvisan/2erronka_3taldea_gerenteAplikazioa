@@ -51,6 +51,10 @@ public class PlateraMenuaController extends BaseController {
     }
 
     public void initialize() {
+        mostrarPlatos();
+    }
+
+    private void mostrarPlatos() {
         ObservableList<Platera> platerak = PlateraDbKudeaketa.getAllPlaterak();
         if(platerak != null && !platerak.isEmpty()) {
             plateraTaula.setItems(platerak);

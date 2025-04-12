@@ -100,21 +100,21 @@ public class LangileaDbKudeaketa {
                         // Mostrar mensaje de éxito
                         String izena = "Langilea Gehitu";
                         String mezuLuzea = "Langilea zuzen gehitu da. Honako hau da bere ID-a: " + generatedId;
-                        mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+                        //mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
                     }
                 }
             } else {
                 // Si no se inserta ninguna fila, mostrar mensaje de error
                 String izena = "Errorea";
                 String mezuLuzea = "Ez da langilea gehitu.";
-                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+                //mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
             }
 
         } catch (SQLException e) {
             // Si ocurre un error, mostrar el mensaje y trazar la excepción
             String izena = "Errorea";
             String mezuLuzea = "Errorea langilea gehitzean: " + e.getMessage();
-            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            //mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
 
             e.printStackTrace();
         }
