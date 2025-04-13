@@ -35,6 +35,9 @@ public class LangileaEditatuController extends BaseController {
         erabiltzailea.setText(izena);
     }
 
+    public static final int LANGILE_AlDATUA = 1;
+    public static final int LANGILE_EZ_ALDATUA = 2;
+
     @FXML
     public void initialize() {
         ObservableList<Langilea> langileak = LangileaDbKudeaketa.getAllLangileak();
@@ -99,24 +102,34 @@ public class LangileaEditatuController extends BaseController {
         langileaEditatu(id, dni, izena, abizena, email, lanPostua, pasahitza, telefonoa, txatBaimena, updateData, updateBy);
     }
 
-    private void langileaEditatu(int id, String dni, String izena, String abizena, String email, String lanPostua, String pasahitza, String telefonoa, boolean txatBaimena, Date updateData, String updateBy) throws IOException {
+    public int langileaEditatu(int id, String dni, String izena, String abizena, String email, String lanPostua, String pasahitza, String telefonoa, boolean txatBaimena, Date updateData, String updateBy) throws IOException {
+
+        if(izena == null || izena.isEmpty() || abizena == null || abizena.isEmpty()
+        || dni == null || dni.isEmpty() || email == null || email.isEmpty()){
+            System.out.println("El debe de haber un nombre en la casilla para que se guarde perfectamente los datos");
+            return LANGILE_EZ_ALDATUA;
+        }
         Langilea langileEditatua = new Langilea(id, dni, izena, abizena, email, lanPostua, pasahitza, telefonoa, txatBaimena, updateData, updateBy);
 
         boolean editatuta = LangileaDbKudeaketa.editatuLangilea(langileEditatua);
 
         if (editatuta) {
-            FuntzioLaguntzaileak.mezuaPantailaratu(
+            /*FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Zuzen editatu da",
                     "Langilearen datuak editatu dira.",
                     Alert.AlertType.INFORMATION
             );
-            onAtzeaBotoiaClick(null);
+            onAtzeaBotoiaClick(null);*/
+            System.out.println("Se han cambiado los datos del trabajador con exito");
+            return LANGILE_AlDATUA;
         } else {
-            FuntzioLaguntzaileak.mezuaPantailaratu(
+            /*FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Errorea editatzean",
                     "Errore bat egon da. Berriro saiatu mesedez.",
                     Alert.AlertType.ERROR
-            );
+            );*/
+            System.out.println("No se han guardado los datos");
+            return LANGILE_EZ_ALDATUA;
         }
     }
 

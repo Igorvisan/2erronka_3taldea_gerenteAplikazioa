@@ -72,7 +72,8 @@ public class LangileaDbKudeaketa {
         return langileenLista;
     }
 
-    public static void langileaGehitu(Langilea langilea) {
+    public static boolean langileaGehitu(Langilea langilea) {
+        boolean opreacionRealizada = false;
         String query = "INSERT INTO langilea (izena, dni, korreoa, telefonoa, pasahitza, postua, txatBaimena) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DbKonexioa.getKonexioa();
@@ -101,6 +102,7 @@ public class LangileaDbKudeaketa {
                         String izena = "Langilea Gehitu";
                         String mezuLuzea = "Langilea zuzen gehitu da. Honako hau da bere ID-a: " + generatedId;
                         //mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+                        return opreacionRealizada = true;
                     }
                 }
             } else {
@@ -108,6 +110,7 @@ public class LangileaDbKudeaketa {
                 String izena = "Errorea";
                 String mezuLuzea = "Ez da langilea gehitu.";
                 //mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+                return opreacionRealizada = false;
             }
 
         } catch (SQLException e) {
@@ -118,6 +121,7 @@ public class LangileaDbKudeaketa {
 
             e.printStackTrace();
         }
+        return opreacionRealizada;
     }
 
     public static boolean langileaEzabatu(int langileId) {
@@ -152,6 +156,7 @@ public class LangileaDbKudeaketa {
             /*String izena = "Errorea";
             String mezuLuzea = "Errorea langilea ezabatzean: " + e.getMessage();
             mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
+
             e.printStackTrace(); // Imprimir el error completo para depuración
         }
 
