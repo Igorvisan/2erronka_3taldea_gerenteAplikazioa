@@ -106,7 +106,10 @@ public class LangileaGehituController extends BaseController {
                 pasahitza == null || pasahitza.isEmpty() ||
                 lanPostua == null || lanPostua.isEmpty() ||
                 dni == null || dni.isEmpty() || // Verificar null y vacío
-                telefonoa == null || telefonoa.isEmpty()) { // Verificar null y vacío
+                telefonoa == null || telefonoa.isEmpty()) {
+            String mezua = "Errorea";
+            String mezuLuzea = "Datuak falta dira, bete eremu guztiak";
+            mezuaPantailaratu(mezua, mezuLuzea, Alert.AlertType.ERROR);// Verificar null y vacío
             System.out.println("Faltan datos por introducir");
             return MISSING_DATA;
         }

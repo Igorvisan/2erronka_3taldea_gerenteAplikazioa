@@ -151,6 +151,9 @@ public class HasierakoMenuaController extends BaseController {
                         boolean exito = ftpUploadXml.subirArchivo(servidor, puerto, user, contrasena, carpetaRemota, nombreArchivo, inputStreamXML);
 
                         if(exito) {
+                            String mezua = "Success";
+                            String mezuLuzea = "Eguraldia deskargatu arrakastaz";
+                            mezuaPantailaratu(mezua, mezuLuzea, Alert.AlertType.INFORMATION);
                             System.out.println("Se ha guardado el archivo exitosamente");
                         }else{
                             System.out.println("No se ha guardado el archivo como debería");

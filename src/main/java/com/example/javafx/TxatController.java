@@ -35,13 +35,21 @@ public class TxatController extends BaseController {
     public static final String SHA_CRYPT = "SHA-256";
     public static final String AES_ALGORITHM = "AES";
     public static final String AES_ALGORITHM_GCM = "AES/GCM/NoPadding";
+    public static final int ALL_GOOD = 0;
+    public static final int MISSING_MESSAGE = 1;
+    public static final int INVALID_MESSAGE = 2;
+    public static final int SUCCESS_MESSAGE = 3;
+    public static final int CONNECTION_FAILED = 5;
+    public static final int CONNECTED = 6;
+    public static final String ENCRYPT_FAILED = "Encriptacion Fallida";
+
 
     public static final Integer IV_LENGTH_ENCRYPT = 12;
     public static final Integer TAG_LENGTH_ENCRYPT = 16;
 
     public static final String LOCAL_PASSPHRASE = "mySecurePassphrase123!"; // Store securely
     @FXML
-    private Label erabiltzailea;  // Etiqueta para el nombre de usuario
+    public Label erabiltzailea;  // Etiqueta para el nombre de usuario
     @FXML
     private TextArea messagesArea; // Área donde se mostrarán los mensajes
     @FXML
@@ -88,7 +96,7 @@ public class TxatController extends BaseController {
         return Base64.getEncoder().encodeToString(combinedIvAndCipherText);
     }
 
-    private String desencriptacion(String mensajeCifrado) throws Exception {
+    public String desencriptacion(String mensajeCifrado) throws Exception {
         byte[] decodedTextoCifrado = Base64.getDecoder().decode(mensajeCifrado);
 
         //Generar llave para la desencriptacion
@@ -155,6 +163,10 @@ public class TxatController extends BaseController {
     @FXML
     private void onSendButtonClick() throws Exception {
         String mensaje = messageInput.getText();
+        enviarMensaje(mensaje);
+    }
+
+    public int enviarMensaje(String mensaje) throws Exception {
         String mensajeEncriptado = encriptacion(mensaje);
         if (!mensaje.isEmpty()) {
             if (out != null) {
@@ -172,11 +184,15 @@ public class TxatController extends BaseController {
 
                 // Limpiar el campo de texto
                 messageInput.clear();
+
+                return SUCCESS_MESSAGE;
             } else {
                 mostrarError("Conexión no establecida", "No se puede enviar el mensaje porque no hay conexión.");
+                return CONNECTION_FAILED;
             }
         } else {
             mostrarError("Mensaje vacío", "No puedes enviar un mensaje vacío.");
+            return MISSING_MESSAGE;
         }
     }
 
@@ -220,7 +236,8 @@ public class TxatController extends BaseController {
     @FXML
     public void initialize() {
         System.out.println("Método initialize ejecutado.");
-        String host = "192.168.115.154"; // Dirección local
+        //String host = "192.168.115.154"; // Dirección local
+        String host = "localhost";
         int puerto = 5555; // El mismo puerto que el servidor
 
         try {
