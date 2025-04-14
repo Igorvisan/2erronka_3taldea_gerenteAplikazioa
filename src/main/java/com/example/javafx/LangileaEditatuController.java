@@ -72,11 +72,11 @@ public class LangileaEditatuController extends BaseController {
     public void onEditatuBotoiaClick(ActionEvent actionEvent) throws IOException {
         // CORRECCIÓN: Verificar si hay una fila seleccionada y actualizar aukeratutakoa si es necesario
         if (langileTaula.getSelectionModel().getSelectedItem() == null) {
-            FuntzioLaguntzaileak.mezuaPantailaratu(
+            /*FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Ez dago hautatutako langilerik",
                     "Mesedez, hautatu langile bat editatzeko.",
                     Alert.AlertType.WARNING
-            );
+            );*/
             return;
         }
 
@@ -106,7 +106,7 @@ public class LangileaEditatuController extends BaseController {
 
         if(izena == null || izena.isEmpty() || abizena == null || abizena.isEmpty()
         || dni == null || dni.isEmpty() || email == null || email.isEmpty()){
-            FuntzioLaguntzaileak.mezuaPantailaratu("Errorea", "Izena, abizena eta dni minimo", Alert.AlertType.ERROR);
+            /*FuntzioLaguntzaileak.mezuaPantailaratu("Errorea", "Izena, abizena eta dni minimo", Alert.AlertType.ERROR);*/
             System.out.println("El debe de haber un nombre en la casilla para que se guarde perfectamente los datos");
             return LANGILE_EZ_ALDATUA;
         }
@@ -115,20 +115,20 @@ public class LangileaEditatuController extends BaseController {
         boolean editatuta = LangileaDbKudeaketa.editatuLangilea(langileEditatua);
 
         if (editatuta) {
-            FuntzioLaguntzaileak.mezuaPantailaratu(
+            /*FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Zuzen editatu da",
                     "Langilearen datuak editatu dira.",
                     Alert.AlertType.INFORMATION
             );
-            onAtzeaBotoiaClick(null);
+            onAtzeaBotoiaClick(null);*/
             System.out.println("Se han cambiado los datos del trabajador con exito");
             return LANGILE_AlDATUA;
         } else {
-            FuntzioLaguntzaileak.mezuaPantailaratu(
+            /*FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Errorea editatzean",
                     "Errore bat egon da. Berriro saiatu mesedez.",
                     Alert.AlertType.ERROR
-            );
+            );*/
             System.out.println("No se han guardado los datos");
             return LANGILE_EZ_ALDATUA;
         }

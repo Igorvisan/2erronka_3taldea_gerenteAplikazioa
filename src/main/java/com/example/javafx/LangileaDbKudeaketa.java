@@ -99,25 +99,25 @@ public class LangileaDbKudeaketa {
                         langilea.setId(generatedId); // Establecer el ID generado al objeto Langilea
 
                         // Mostrar mensaje de éxito
-                        String izena = "Langilea Gehitu";
+                        /*String izena = "Langilea Gehitu";
                         String mezuLuzea = "Langilea zuzen gehitu da. Honako hau da bere ID-a: " + generatedId;
-                        mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+                        mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);*/
                         return opreacionRealizada = true;
                     }
                 }
             } else {
                 // Si no se inserta ninguna fila, mostrar mensaje de error
-                String izena = "Errorea";
+                /*String izena = "Errorea";
                 String mezuLuzea = "Ez da langilea gehitu.";
-                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
                 return opreacionRealizada = false;
             }
 
         } catch (SQLException e) {
             // Si ocurre un error, mostrar el mensaje y trazar la excepción
-            String izena = "Errorea";
+            /*String izena = "Errorea";
             String mezuLuzea = "Errorea langilea gehitzean: " + e.getMessage();
-            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
 
             e.printStackTrace();
         }
@@ -139,23 +139,23 @@ public class LangileaDbKudeaketa {
             System.out.println("Filas afectadas: " + filasAfectadas); // Ver cuántas filas se han afectado
 
             if (filasAfectadas > 0) {
-                String izena = "Langilea Ezabatu";
+                /*String izena = "Langilea Ezabatu";
                 String mezuLuzea = "Langilea arrakastaz ezabatu da.";
-                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.INFORMATION);*/
                 System.out.println("Se ha eliminado al trabajador");
                 opreacionRealizada = true;
             } else {
-                String izena = "Errorea";
+                /*String izena = "Errorea";
                 String mezuLuzea = "Ez da langilea aurkitu.";
-                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
                 System.out.println("No se ha podido eliminar al trabajador");
                 opreacionRealizada = false;
             }
 
         } catch (SQLException e) {
-            String izena = "Errorea";
+            /*String izena = "Errorea";
             String mezuLuzea = "Errorea langilea ezabatzean: " + e.getMessage();
-            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);*/
 
             e.printStackTrace(); // Imprimir el error completo para depuración
         }
