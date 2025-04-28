@@ -28,6 +28,7 @@ com\example\javafx\HasierakoMenuaController.class
 com\example\javafx\MahaiaDbKudeaketa.class
 com\example\javafx\App.class
 com\example\javafx\FtpUploader.class
+com\example\javafx\HasierakoMenuaController$1.class
 com\example\javafx\ErreserbaEditatuController.class
 module-info.class
 com\example\javafx\Erreserba.class
@@ -38,8 +39,10 @@ com\example\javafx\TxatController.class
 com\example\javafx\MahaiaEditatuController.class
 com\example\javafx\ErreserbaMenuaController.class
 com\example\javafx\PlateraEzabatuController.class
+com\example\javafx\GraficoBebida.class
 com\example\javafx\Platera.class
 com\example\javafx\ErreserbaGehituController.class
+com\example\javafx\Grafico.class
 com\example\javafx\XPathTransformer.class
 com\example\javafx\LangileaEditatuController.class
 com\example\javafx\HelloController.class

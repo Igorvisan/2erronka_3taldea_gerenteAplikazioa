@@ -1,0 +1,63 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="talde3_report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1ee868f4-fb7a-445d-8626-80eb03d5dac0">
+    <dataset name="grafico_macro1" uuid="c416db74-2de0-4983-bfaa-53acfb3226c6">
+        <field name="mahaiZenbakia" class="java.lang.String"/>
+        <field name="kantidad" class="java.lang.Integer"/>
+    </dataset>
+    <dataset name="grafico_macro2" uuid="20463125-9793-43b7-b572-ecad85244311">
+        <field name="cantidad" class="java.lang.Integer"/>
+        <field name="izena" class="java.lang.String"/>
+    </dataset>
+    <parameter name="firstName" class="java.lang.String"/>
+    <parameter name="macroPieChartDataSet" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="macroPieChartDataSet2" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <background splitType="Stretch"/>
+    <title height="84" splitType="Stretch">
+        <element kind="frame" uuid="78590b49-cb5e-4441-9062-de5781973791" mode="Opaque" x="0" y="7" width="550" height="70" forecolor="#CF3C3A" backcolor="#E0322F">
+            <element kind="staticText" uuid="cf46f627-2935-4ae4-908a-2cd7a41e9dc8" x="10" y="0" width="290" height="70" forecolor="#FFFFFF" fontSize="40.0" hTextAlign="Center">
+                <text><![CDATA[THE BULLS]]></text>
+            </element>
+            <element kind="textField" uuid="fd400cca-e704-4fd1-99c1-bb4ef4b3ee3b" x="420" y="10" width="130" height="30" forecolor="#FFFFFF" fontSize="12.0">
+                <expression><![CDATA[$P{firstName}]]></expression>
+            </element>
+        </element>
+    </title>
+    <detail>
+        <band height="641" splitType="Stretch">
+            <element kind="chart" chartType="pie" uuid="11fe0a3b-7f3b-4652-9b64-bf8cffa420c9" x="80" y="0" width="302" height="266" evaluationTime="Report">
+                <dataset kind="pie">
+                    <datasetRun uuid="08265cc8-e9bf-4c76-9bba-5ac32f082cba" subDataset="grafico_macro2">
+                        <dataSourceExpression><![CDATA[$P{macroPieChartDataSet}]]></dataSourceExpression>
+                    </datasetRun>
+                    <series>
+                        <keyExpression><![CDATA[$F{izena}]]></keyExpression>
+                        <valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+                        <labelExpression><![CDATA[$F{izena}]]></labelExpression>
+                    </series>
+                </dataset>
+                <plot>
+                    <itemLabel/>
+                </plot>
+            </element>
+            <element kind="chart" chartType="bar" uuid="8700dc42-b204-42ac-9f8e-390cec475151" x="10" y="266" width="534" height="294" evaluationTime="Report">
+                <dataset kind="category">
+                    <datasetRun uuid="632ee985-467e-42f3-9a1d-985ff8a1cb54" subDataset="grafico_macro1">
+                        <dataSourceExpression><![CDATA[$P{macroPieChartDataSet2}]]></dataSourceExpression>
+                    </datasetRun>
+                    <series>
+                        <seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
+                        <categoryExpression><![CDATA[$F{mahaiZenbakia}]]></categoryExpression>
+                        <valueExpression><![CDATA[$F{kantidad}]]></valueExpression>
+                        <labelExpression><![CDATA[$F{mahaiZenbakia}]]></labelExpression>
+                    </series>
+                </dataset>
+                <plot categoryAxisLabelColor="#000000" categoryAxisTickLabelColor="#000000" categoryAxisLineColor="#000000" valueAxisLabelColor="#000000" valueAxisTickLabelColor="#000000" valueAxisLineColor="#000000">
+                    <itemLabel/>
+                </plot>
+            </element>
+            <element kind="staticText" uuid="0d186e59-0832-4c87-81e9-b3342d4d6c2f" x="60" y="560" width="450" height="50">
+                <text><![CDATA[PARTAIDEAK: Gorka Bartolome, Ander Murua eta Igor Viyuela]]></text>
+            </element>
+        </band>
+    </detail>
+</jasperReport>

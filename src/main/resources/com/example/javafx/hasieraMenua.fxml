@@ -6,6 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane style="-fx-background-color: #f6f0e4;" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -39,9 +40,14 @@
         <Button style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
                 text="Saioa Itxi" onAction="#onSaioaItxiBotoiaClick" AnchorPane.bottomAnchor="20.0"
                 AnchorPane.rightAnchor="20.0" prefWidth="120.0"/>
-        <!-- Add this new button for weather data -->
-        <Button style="-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
-                text="Eguraldiaren Datuak Igo"  AnchorPane.bottomAnchor="20.0"
-                AnchorPane.rightAnchor="150.0" onAction="#onEguraldiClickButton" prefWidth="220.0"/>
+        <!-- Weather and charts buttons in an HBox for horizontal layout -->
+        <HBox spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="150.0">
+            <children>
+                <Button onAction="#onKargatuGrafikak" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
+                        text="Kargatu grafikak" prefWidth="160.0"/>
+                <Button fx:id="kargatuBotoia" style="-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
+                        text="Eguraldiaren Datuak Igo" onAction="#onEguraldiClickButton" prefWidth="220.0"/>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>

@@ -12,6 +12,7 @@ module com.example.javafx {
     requires com.google.api.services.drive;
     requires com.google.api.client.json.gson;
     requires org.apache.commons.net;
+    requires net.sf.jasperreports.core;
 
     opens com.example.javafx to javafx.fxml;
     exports com.example.javafx;

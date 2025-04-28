@@ -72,7 +72,7 @@ public class TxatController extends BaseController {
 
     //Encriptado del mensaje
     public String encriptacion(String mensaje) throws Exception{
-        // Generate a random IV
+        // Generamos un IV Aleatorio
         byte[] iv = new byte[IV_LENGTH_ENCRYPT];
         SecureRandom secureRandom = new SecureRandom();
         secureRandom.nextBytes(iv);
@@ -399,7 +399,5 @@ public class TxatController extends BaseController {
             System.out.println("No has seleccionado un destino adecuado");
         }
     }
-
-
 }
 
