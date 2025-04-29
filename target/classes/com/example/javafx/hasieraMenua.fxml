@@ -47,6 +47,10 @@
                         text="Kargatu grafikak" prefWidth="160.0"/>
                 <Button fx:id="kargatuBotoia" style="-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
                         text="Eguraldiaren Datuak Igo" onAction="#onEguraldiClickButton" prefWidth="220.0"/>
+                <Button fx:id="terrazaAbilitatu" style="-fx-background-color: #eec624; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
+                        text="Terraza Abilitatu" onAction="#onTerrazaAbilitatu" prefWidth="170.0"/>
+                <Button fx:id="terrazaDesabilitatu" style="-fx-background-color: #ee9524; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 10; -fx-padding: 8 16;"
+                        text="Terraza Desabilitatu" onAction="#onTerrazaDesabilitatu" prefWidth="170.0"/>
             </children>
         </HBox>
     </children>

@@ -28,7 +28,7 @@ public class ErreserbaEzabatuController extends BaseController {
     @FXML
     private TableColumn<Erreserba, Integer> pertsonaColumn;
     @FXML
-    private TableColumn<Erreserba, Integer> mahaiaColumn;
+    private TableColumn<Erreserba, String> mahaiaColumn;
 
     private Erreserba aukeratutakoa;
 
@@ -119,7 +119,7 @@ public class ErreserbaEzabatuController extends BaseController {
         izenaColumn.setCellValueFactory(new PropertyValueFactory<>("erreserbaIzena"));
         dataColumn.setCellValueFactory(new PropertyValueFactory<>("erreserbaDate"));
         pertsonaColumn.setCellValueFactory(new PropertyValueFactory<>("pertsonaKopurua"));
-        mahaiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahiaId"));
+        mahaiaColumn.setCellValueFactory(new PropertyValueFactory<>("mahaiZenbakia"));
 
         izenaColumn.setPrefWidth(100);
         dataColumn.setPrefWidth(100);

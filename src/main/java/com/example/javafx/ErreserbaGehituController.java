@@ -94,7 +94,7 @@ public class ErreserbaGehituController extends BaseController {
         erreserbaBerria.setErreserbaIzena(erreserbaIzena);
         erreserbaBerria.setErreserbaDate(Date.valueOf(localDate));
         erreserbaBerria.setPertsonaKopurua(pertsonaKopurua);
-        erreserbaBerria.setMahaiZenbakia(mahaiaId);
+        erreserbaBerria.setMahaiZenbakia(mahaiaStr);
 
         boolean ondo = ErreserbaDbKudeaketa.erreserbaGehitu(erreserbaBerria);
 

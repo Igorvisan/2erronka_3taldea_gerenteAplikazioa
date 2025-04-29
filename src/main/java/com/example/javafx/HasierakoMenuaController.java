@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,10 +144,11 @@ public class HasierakoMenuaController extends BaseController {
         Document xmlDocument = connectXml.getXmlDocument();
 
         if (xmlDocument != null) {
-            String XPath = "//prediccion/dia/estado_cielo | //prediccion/dia/viento | //prediccion/dia/temperatura | //prediccion/dia/sens_termica | //prediccion/dia/humedad_relativa";
+            String XPath = "//prediccion/dia[@fecha] | //prediccion/dia/estado_cielo | //prediccion/dia/viento | //prediccion/dia/temperatura | //prediccion/dia/sens_termica | //prediccion/dia/humedad_relativa";
             Document newXmlDocument = XPathTransformer.applyXPath(xmlDocument, XPath);
             if (newXmlDocument != null) {
                 System.out.println("SE HA APLICADO CORRECTAMENTE EL XPATH");
+                TodayWeather.mostrarTodayWeather(newXmlDocument);
                 //AQUI CONTRUIREMOS EL INPUTSTREAM DEL ARCHIVO XML
                 InputStream inputStreamXML = ConvertToInputStream.convertXmlDocument(newXmlDocument);
 
@@ -250,6 +252,16 @@ public class HasierakoMenuaController extends BaseController {
         alert.setHeaderText(null);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+
+    @FXML
+    public void onTerrazaAbilitatu(ActionEvent e) throws SQLException {        //Si hay conexion ejecutara la funcion de terrazaAbilitatu
+        MahaiaDbKudeaketa.terrazaAbilitatu();
+    }
+
+    @FXML
+    public void onTerrazaDesabilitatu(ActionEvent e) throws SQLException {
+        MahaiaDbKudeaketa.terrazaDesabilitatu();
     }
 }
 

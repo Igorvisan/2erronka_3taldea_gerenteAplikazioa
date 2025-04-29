@@ -72,16 +72,16 @@ public class ErreserbaEditatuController extends BaseController {
         String izena = izenaField.getText();
         String dataStr = String.valueOf(dataField.getValue());
         String pertsonaStr = pertsonaField.getText();
-        String mahaiaStr = mahaiaField.getText();
+        String mahaiaStr = mahaiaField.getText(); // Ya no necesitas convertirlo a int
 
-        int pertsona, mahaia;
+        int pertsona;
         try {
             pertsona = Integer.parseInt(pertsonaStr);
-            mahaia = Integer.parseInt(mahaiaStr);
+            // Eliminar la conversión de mahaia a int
         } catch (NumberFormatException e) {
             FuntzioLaguntzaileak.mezuaPantailaratu(
                     "Errorea",
-                    "Pertsona kopurua eta mahaia zenbakiak izan behar dira.",
+                    "Pertsona kopurua zenbakia izan behar da.", // Mensaje actualizado
                     Alert.AlertType.ERROR
             );
             return;
@@ -107,8 +107,10 @@ public class ErreserbaEditatuController extends BaseController {
         Date updateData = new Date();
         String updatedBy = erabiltzailea.getText();
 
-        Erreserba erreserbaEditatua = new Erreserba(id, izena, data, pertsona, mahaia, kantzelatuta, updateData, updatedBy);
+        // Pasar mahaiaStr directamente como String
+        Erreserba erreserbaEditatua = new Erreserba(id, izena, data, pertsona, mahaiaStr, kantzelatuta, updateData, updatedBy);
 
+        // El resto del código se mantiene igual
         boolean editatuta = ErreserbaDbKudeaketa.editatuErreserba(erreserbaEditatua);
 
         if (editatuta) {

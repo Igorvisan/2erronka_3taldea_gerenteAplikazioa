@@ -138,5 +138,67 @@ public class MahaiaDbKudeaketa {
         }
     }
 
+    public static void terrazaAbilitatu(){
+        String query = "UPDATE mahaia SET habilitado = ? WHERE id IN(13, 14, 15, 16)";
+        try(Connection conn = DbKonexioa.getKonexioa();
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            if(conn == null){
+                String izena = "Errorea";
+                String mezuLuzea = "Ez da datu basera konektatu";
+                mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+                return;
+            }
+
+            stmt.setBoolean(1, true);
+            int affectedRows = stmt.executeUpdate();
+
+            if(affectedRows > 0){
+                String titulua = "Mahaia Abilitatuta";
+                String mezuLuzea = "Mahaia zuzen abilitatu da.";
+                mezuaPantailaratu(titulua, mezuLuzea, Alert.AlertType.INFORMATION);
+            }else{
+                String titulua = "Errorea";
+                String mezuLuzea = "Ez da mahaia abilitatu.";
+                mezuaPantailaratu(titulua, mezuLuzea, Alert.AlertType.ERROR);
+            }
+        } catch (SQLException e) {
+            // Si ocurre un error, mostrar el mensaje y trazar la excepción
+            String izena = "Errorea";
+            String mezuLuzea = "Errorea mahaia abilitatzean: " + e.getMessage();
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
+    public static void terrazaDesabilitatu(){
+        String query = "UPDATE mahaia SET habilitado = ? WHERE id IN(13, 14, 15, 16)";
+
+        try(Connection conn = DbKonexioa.getKonexioa();
+        PreparedStatement stmt = conn.prepareStatement(query)){
+            if(conn == null){
+                String izena = "Errorea";
+                String mezuLuzuea = "Ez da datu basera konektatu";
+                mezuaPantailaratu(izena, mezuLuzuea, Alert.AlertType.ERROR);
+            }
+
+            stmt.setBoolean(1, false);
+            int affectedRows = stmt.executeUpdate();
+            if(affectedRows > 0){
+                String titulua = "ONGI";
+                String mezuLuzea = "Mahaia zuzen desabilitatu da.";
+                mezuaPantailaratu(titulua, mezuLuzea, Alert.AlertType.INFORMATION);
+            }else{
+                String titulua = "Errorea";
+                String mezuLuzea = "Ez da mahaia desabilitatu.";
+                mezuaPantailaratu(titulua, mezuLuzea, Alert.AlertType.ERROR);
+            }
+        }catch (SQLException e){
+            String izena = "Errorea";
+            String mezuLuzea = "Ez dira mahaiak desabilitatu " + e.getMessage();
+            mezuaPantailaratu(izena, mezuLuzea, Alert.AlertType.ERROR);
+        }
+    }
+
 
 }

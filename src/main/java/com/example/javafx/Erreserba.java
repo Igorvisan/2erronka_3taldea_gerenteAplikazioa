@@ -7,14 +7,14 @@ public class Erreserba {
     private String erreserbaIzena;
     private Date erreserbaDate;
     private int pertsonaKopurua;
-    private int mahaiZenbakia;
+    private String mahaiZenbakia;
     private boolean kantzelatuta;
     private Date updateData;
     private String updatedBy;
 
     public Erreserba() {}
 
-    public Erreserba(int id, String erreserbaIzena, Date erreserbaDate, int pertsonaKopurua, int mahaiZenbakia, boolean kantzelatuta, Date updateData, String updatedBy) {
+    public Erreserba(int id, String erreserbaIzena, Date erreserbaDate, int pertsonaKopurua, String mahaiZenbakia, boolean kantzelatuta, Date updateData, String updatedBy) {
         this.id = id;
         this.erreserbaIzena = erreserbaIzena;
         this.erreserbaDate = erreserbaDate;
@@ -57,11 +57,12 @@ public class Erreserba {
         this.pertsonaKopurua = pertsonaKopurua;
     }
 
-    public int getMahaiZenbakia() {
+    public String getMahaiZenbakia() {
         return mahaiZenbakia;
     }
 
-    public void setMahaiZenbakia(int mahaiZenbakia) {
+    // Cambiar el tipo de parámetro del setter
+    public void setMahaiZenbakia(String mahaiZenbakia) {
         this.mahaiZenbakia = mahaiZenbakia;
     }
 

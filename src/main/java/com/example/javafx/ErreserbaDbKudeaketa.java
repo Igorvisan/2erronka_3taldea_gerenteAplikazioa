@@ -26,13 +26,12 @@ public class ErreserbaDbKudeaketa {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String erreserbaIzena = rs.getString("izena");
-                Date erreserbaData = rs.getDate("data");  // Aquí obtenemos la fecha
+                Date erreserbaData = rs.getDate("data");
                 int pertsonaKopurua = rs.getInt("pertsonaKop");
-                int mahaiZenbakia = rs.getInt("mahaiZenbakia");
+                String mahaiZenbakia = rs.getString("mahaiZenbakia");
                 boolean kantzelatuta = rs.getBoolean("kantzelatuta");
                 Date updateData = rs.getDate("updateData");
                 String updateBy = rs.getString("updateBy");
-
 
                 // Crear un objeto Erreserba con los valores obtenidos
                 Erreserba erreserba = new Erreserba(id, erreserbaIzena, erreserbaData, pertsonaKopurua, mahaiZenbakia, kantzelatuta, updateData, updateBy);
@@ -52,7 +51,6 @@ public class ErreserbaDbKudeaketa {
         // Consulta para insertar la nueva reserva
         String insertQuery = "INSERT INTO erreserba (izena, data, pertsonaKop, mahaiZenbakia) VALUES (?, ?, ?, ?)";
 
-
         // Consulta para verificar si la mesa ya está reservada en esa fecha
         String checkReservaQuery = "SELECT COUNT(*) FROM erreserba WHERE mahaiZenbakia = ? AND data = ?";
 
@@ -62,7 +60,6 @@ public class ErreserbaDbKudeaketa {
                 mezuaPantailaratu("Errorea", "Pertsona kopurua ezin da 0 edo negatiboa izan.", Alert.AlertType.ERROR);
                 return false;  // Retornar false si hay un error en la validación
             }
-
 
             // Paso 3: Validar el mes y el día de la fecha
             LocalDate fechaReserva = erreserba.getErreserbaDate().toLocalDate();
@@ -82,7 +79,8 @@ public class ErreserbaDbKudeaketa {
 
             // Paso 4: Verificar si la mesa ya está reservada en esa fecha
             try (PreparedStatement checkStmt = conn.prepareStatement(checkReservaQuery)) {
-                checkStmt.setInt(1, erreserba.getMahaiZenbakia());
+                // Cambiar a setString para mahaiZenbakia
+                checkStmt.setString(1, erreserba.getMahaiZenbakia());
                 checkStmt.setDate(2, erreserba.getErreserbaDate());
                 try (ResultSet rs = checkStmt.executeQuery()) {
                     if (rs.next() && rs.getInt(1) > 0) {
@@ -104,7 +102,8 @@ public class ErreserbaDbKudeaketa {
                 insertStmt.setString(1, erreserba.getErreserbaIzena());
                 insertStmt.setDate(2, erreserba.getErreserbaDate());
                 insertStmt.setInt(3, erreserba.getPertsonaKopurua());
-                insertStmt.setInt(4, erreserba.getMahaiZenbakia());
+                // Cambiar a setString para mahaiZenbakia
+                insertStmt.setString(4, erreserba.getMahaiZenbakia());
 
                 int rowsInserted = insertStmt.executeUpdate();
 
@@ -170,6 +169,7 @@ public class ErreserbaDbKudeaketa {
             e.printStackTrace(); // Imprimir el error completo para depuración
         }
     }
+
     public static boolean editatuErreserba(Erreserba erreserbaEditatua) {
         // Consulta para verificar si la mesa ya está reservada en esa fecha (excluyendo la reserva actual)
         String checkReservaQuery = "SELECT COUNT(*) FROM erreserba WHERE mahaiZenbakia = ? AND data = ? AND id != ?";
@@ -197,7 +197,8 @@ public class ErreserbaDbKudeaketa {
 
             // 3. Verificar si la mesa ya está reservada para esa fecha (excluyendo la misma reserva)
             try (PreparedStatement checkStmt = conn.prepareStatement(checkReservaQuery)) {
-                checkStmt.setInt(1, erreserbaEditatua.getMahaiZenbakia());
+                // Cambiar a setString para mahaiZenbakia
+                checkStmt.setString(1, erreserbaEditatua.getMahaiZenbakia());
                 checkStmt.setDate(2, erreserbaEditatua.getErreserbaDate());
                 checkStmt.setInt(3, erreserbaEditatua.getId());
                 try (ResultSet rs = checkStmt.executeQuery()) {
@@ -220,11 +221,11 @@ public class ErreserbaDbKudeaketa {
                 stmt.setString(1, erreserbaEditatua.getErreserbaIzena());
                 stmt.setDate(2, erreserbaEditatua.getErreserbaDate());
                 stmt.setInt(3, erreserbaEditatua.getPertsonaKopurua());
-                stmt.setInt(4, erreserbaEditatua.getMahaiZenbakia());
+                // Cambiar a setString para mahaiZenbakia
+                stmt.setString(4, erreserbaEditatua.getMahaiZenbakia());
                 stmt.setDate(5, new java.sql.Date(System.currentTimeMillis()));
                 stmt.setString(6, erreserbaEditatua.getUpdatedBy());
                 stmt.setInt(7, erreserbaEditatua.getId());
-
 
                 int rowsAffected = stmt.executeUpdate();
                 return rowsAffected > 0; // Retorna true si la actualización fue exitosa
