@@ -96,8 +96,8 @@ public class LangileaEzabatuController extends BaseController {
         boolean exito = LangileaDbKudeaketa.langileaEzabatu(langileId);
         if(exito) {
             //Limpiar campos e interfaz
-            //izenaField.clear();
-            //langileTaula.getSelectionModel().clearSelection();
+            izenaField.clear();
+            langileTaula.getSelectionModel().clearSelection();
 
             return LANGILE_EZABATUTA;
         }else{

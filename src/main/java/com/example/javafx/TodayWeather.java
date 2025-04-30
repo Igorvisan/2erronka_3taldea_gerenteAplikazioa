@@ -57,11 +57,11 @@ public class TodayWeather {
                 if(resultado != null && !resultado.isEmpty()){
                     if(resultado.toLowerCase().contains("lluvia")){
                         String titulua = "Errorea";
-                        String mezuLuzea = "!ALERTA! Hoy llovera por lo tanto no hay terraza";
+                        String mezuLuzea = "!ALERTA! Gaur euria egingo du, beraz ez dago terrazarik";
                         showAlert(titulua, mezuLuzea);
                     } else {
                         String titulua = "Alerta";
-                        String mezuLuzea = "!BUENAS NOTICIAS! Hoy no llovera por lo tanto hay terraza";
+                        String mezuLuzea = "!BIKAIN! Gaur ez du euririk egingo, terraza jarri";
                         showAlert(titulua, mezuLuzea);
                     }
                     System.out.println(mesnajePrediciion);

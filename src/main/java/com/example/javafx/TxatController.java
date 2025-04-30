@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+
 import java.util.*;
 
 import javax.crypto.BadPaddingException;
@@ -40,6 +41,7 @@ public class TxatController extends BaseController {
     public static final int INVALID_MESSAGE = 2;
     public static final int SUCCESS_MESSAGE = 3;
     public static final int CONNECTION_FAILED = 5;
+
     public static final int CONNECTED = 6;
     public static final String ENCRYPT_FAILED = "Encriptacion Fallida";
 
