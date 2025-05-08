@@ -29,6 +29,7 @@ public class FtpUploader {
             System.out.println("Creación de carpeta: " + (dirCrear ? "Exitosa" : "Ya existe"));
 
             boolean exito = ftpClient.storeFile(nombreArchivo, inputStream);
+            System.out.println("Reply: " + ftpClient.getReplyString());
             if (exito) {
                 System.out.println("Se ha guardado el archivo exitosamente");
             } else {

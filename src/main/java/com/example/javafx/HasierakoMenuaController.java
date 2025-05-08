@@ -163,7 +163,6 @@ public class HasierakoMenuaController extends BaseController {
                     // Subir a FTP
                     FtpUploader ftpUploadXml = new FtpUploader();
                     boolean exito = ftpUploadXml.subirArchivo(servidor, puerto, user, contrasena, carpetaRemota, nombreArchivo, inputStreamXML);
-
                     if (exito) {
                         String mezua = "Success";
                         String mezuLuzea = "Eguraldia deskargatu arrakastaz";
